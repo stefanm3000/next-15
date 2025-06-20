@@ -59,9 +59,9 @@ export function MovieCard({ movie }: MovieCardProps) {
 
       <div className="p-4">
         <ViewTransition name={`movie-title-${movie.imdbID}`}>
-          <h3 className="font-semibold text-white text-sm line-clamp-2 mb-2 group-hover:text-gray-300 transition-colors font-mono">
+          <p className="font-semibold text-white text-sm line-clamp-2 mb-2 group-hover:text-gray-300 transition-colors font-mono">
             {movie.Title}
-          </h3>
+          </p>
         </ViewTransition>
 
         {movie.imdbRating && (
