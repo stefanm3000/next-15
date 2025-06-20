@@ -1,27 +1,23 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
 
-interface SearchFormProps {
-  initialQuery: string;
-}
-
-export function SearchForm({ initialQuery }: SearchFormProps) {
+export function SearchForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState(initialQuery);
-
-  useEffect(() => {
-    setQuery(initialQuery);
-  }, [initialQuery]);
+  const query = searchParams.get("s") || "batman";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
+    const value = (e.target as HTMLFormElement).search.value.trim();
+
+    if (value) {
       const params = new URLSearchParams(searchParams);
-      params.set("s", query.trim());
-      params.delete("page"); // Reset to first page when searching
+
+      params.set("s", value);
+      params.delete("page");
+      params.delete("sort");
+
       router.push(`/?${params.toString()}`);
     }
   };
@@ -30,9 +26,11 @@ export function SearchForm({ initialQuery }: SearchFormProps) {
     <form onSubmit={handleSubmit} className="max-w-2xl">
       <div className="flex gap-2">
         <input
+          autoFocus
+          key={query}
+          name="search"
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          defaultValue={query}
           placeholder="Search for movies..."
           className="flex-1 px-4 py-3 bg-black/50 backdrop-blur-md border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent lg:min-w-[300px]"
         />

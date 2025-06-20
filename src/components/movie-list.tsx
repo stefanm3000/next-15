@@ -19,9 +19,8 @@ export const MovieList = ({
   const { movies, totalPages, totalResults } = use(moviesPromise);
 
   const query = searchParams.get("s");
-  const currentPage = searchParams.get("page");
-  const sort = searchParams.get("sort") || "default";
 
+  const sort = searchParams.get("sort") || "default";
   const sortedMovies = sortMovies(movies, sort);
 
   const showPagination = totalPages > 1 && sortedMovies.length > 0;
@@ -41,12 +40,8 @@ export const MovieList = ({
       <MovieGrid movies={sortedMovies} />
 
       {showPagination && (
-        <div className="mt-8">
-          <Pagination
-            currentPage={parseInt(currentPage || "1")}
-            totalPages={totalPages}
-            query={query || ""}
-          />
+        <div className="mt-8 sticky">
+          <Pagination totalPages={totalPages} />
         </div>
       )}
     </>

@@ -9,10 +9,6 @@ export type SortOption =
   | "title-a-z"
   | "title-z-a";
 
-interface SortByProps {
-  currentSort: SortOption;
-}
-
 interface SortOptionItem {
   value: SortOption;
   label: string;
@@ -26,9 +22,10 @@ const sortOptions: SortOptionItem[] = [
   { value: "title-z-a", label: "title (z-a)" },
 ];
 
-export function SortBy({ currentSort }: SortByProps) {
+export function SortBy() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const currentSort = searchParams.get("sort") || "default";
 
   const handleSortChange = (sort: string) => {
     const params = new URLSearchParams(searchParams);

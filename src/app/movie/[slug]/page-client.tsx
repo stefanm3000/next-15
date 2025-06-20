@@ -27,7 +27,7 @@ export function Details({
               <div className="sticky top-8">
                 <ViewTransition name={`movie-poster-${movie.imdbID}`}>
                   {movie.Poster && movie.Poster !== "N/A" ? (
-                    <div className="relative aspect-[2/3] rounded-lg overflow-hidden">
+                    <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-slate-900/50">
                       <Image
                         src={movie.Poster}
                         alt={movie.Title}
@@ -35,6 +35,7 @@ export function Details({
                         className="object-cover"
                         sizes="(max-width: 1024px) 100vw, 33vw"
                         priority
+                        loading="eager"
                       />
                     </div>
                   ) : (

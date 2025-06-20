@@ -4,26 +4,17 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 interface PaginationProps {
-  currentPage: number;
   totalPages: number;
-  query: string;
 }
 
-export function Pagination({ currentPage, totalPages }: PaginationProps) {
+export function Pagination({ totalPages }: PaginationProps) {
   const searchParams = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1");
 
   const createPageUrl = (page: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());
     return `/?${params.toString()}`;
-  };
-
-  const handleMouseEnter = (page: number) => {
-    const url = createPageUrl(page);
-    const link = document.createElement("link");
-    link.rel = "prefetch";
-    link.href = url;
-    document.head.appendChild(link);
   };
 
   const visiblePages = getVisiblePages({ currentPage, totalPages });
@@ -35,9 +26,8 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
       {currentPage > 1 && (
         <Link
           href={createPageUrl(currentPage - 1)}
-          className="px-3 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
+          className="px-3 py-2 bg-black-50/50 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
           prefetch
-          onMouseEnter={() => handleMouseEnter(currentPage - 1)}
         >
           prev
         </Link>
@@ -56,7 +46,6 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
                   : "bg-white/5 backdrop-blur-md border border-white/20 text-white hover:bg-white/10"
               }`}
               prefetch
-              onMouseEnter={() => handleMouseEnter(page as number)}
             >
               {page}
             </Link>
@@ -64,13 +53,11 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
         </div>
       ))}
 
-      {/* Next Button */}
       {currentPage < totalPages && (
         <Link
           href={createPageUrl(currentPage + 1)}
           className="px-3 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
           prefetch
-          onMouseEnter={() => handleMouseEnter(currentPage + 1)}
         >
           next
         </Link>
