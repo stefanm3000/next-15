@@ -41,7 +41,7 @@ export function SortBy() {
         <select
           value={currentSort}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="w-full appearance-none rounded-lg bg-transparent py-3 px-3 text-sm font-mono text-white focus:border-white/40 focus:outline-none opacity-0 absolute inset-0 cursor-pointer"
+          className="w-full appearance-none rounded-lg bg-transparent py-3.5 px-3 text-sm font-mono text-white focus:border-white/40 focus:outline-none opacity-0 absolute inset-0 cursor-pointer"
         >
           {sortOptions.map((option) => (
             <option
@@ -53,7 +53,7 @@ export function SortBy() {
             </option>
           ))}
         </select>
-        <div className="flex items-center justify-center py-3 px-3">
+        <div className="flex items-center justify-center py-3.5 px-3">
           <ArrowDownNarrowWide className="h-5 w-5 text-white/70" />
         </div>
       </div>
