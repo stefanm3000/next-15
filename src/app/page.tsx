@@ -21,15 +21,17 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const query = (await searchParams.s) || "batman";
-  const page = parseInt(searchParams.page || "1");
-  const sortOption = searchParams.sort || "default";
+  const { s, page, sort } = await searchParams;
+  const query = s || "batman";
+  const currentPage = parseInt(page || "1");
+  const sortOption = sort || "default";
+
   const pageSize = 10;
 
   const response = await fetch(
     `http://www.omdbapi.com/?apikey=7f887362&s=${encodeURIComponent(
       query
-    )}&page=${page}`,
+    )}&page=${currentPage}`,
     { next: { revalidate: 3600 } }
   );
 
@@ -103,7 +105,7 @@ export default async function Home({ searchParams }: HomeProps) {
         {totalPages > 1 && sortedMovies.length > 0 && (
           <div className="mt-8">
             <Pagination
-              currentPage={page}
+              currentPage={currentPage}
               totalPages={totalPages}
               query={query}
             />
