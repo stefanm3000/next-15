@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { type MovieDetail } from "@/utils/movies";
+import { SlideTransition } from "./slide-transition";
 
 interface MovieCardProps {
   movie: MovieDetail;
@@ -12,7 +13,7 @@ export function MovieCard({ movie }: MovieCardProps) {
   return (
     <Link
       href={`/movie/${movie.imdbID}`}
-      className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden hover:bg-white/10 transition-all duration-300 transform hover:scale-105 border border-white/10"
+      className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform border border-white/10"
       prefetch={true}
       onMouseEnter={() => {
         const link = document.createElement("link");
@@ -23,14 +24,18 @@ export function MovieCard({ movie }: MovieCardProps) {
     >
       <div className="relative aspect-[2/3]">
         {movie.Poster && movie.Poster !== "N/A" ? (
-          <Image
-            src={movie.Poster}
-            alt={movie.Title}
-            fill
-            className="object-cover group-hover:scale-110 transition-transform duration-300"
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-            priority={false}
-          />
+          <SlideTransition name={`movie-poster-${movie.imdbID}`}>
+            <Image
+              loading="eager"
+              placeholder="empty"
+              src={movie.Poster}
+              alt={movie.Title}
+              fill
+              className="object-cover transition-transform duration-300"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+              priority={true}
+            />
+          </SlideTransition>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
             <div className="text-gray-500 text-center p-4">

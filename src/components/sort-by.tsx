@@ -2,16 +2,14 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-type SortOption =
+export type SortOption =
   | "default"
-  | "rating-high"
-  | "rating-low"
   | "year-new"
   | "year-old"
   | "title-a-z"
   | "title-z-a";
 
-interface SortControlsProps {
+interface SortByProps {
   currentSort: SortOption;
 }
 
@@ -22,22 +20,20 @@ interface SortOptionItem {
 
 const sortOptions: SortOptionItem[] = [
   { value: "default", label: "default" },
-  { value: "rating-high", label: "rating (high to low)" },
-  { value: "rating-low", label: "rating (low to high)" },
   { value: "year-new", label: "year (newest)" },
   { value: "year-old", label: "year (oldest)" },
   { value: "title-a-z", label: "title (a-z)" },
   { value: "title-z-a", label: "title (z-a)" },
 ];
 
-export function SortControls({ currentSort }: SortControlsProps) {
+export function SortBy({ currentSort }: SortByProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleSortChange = (sort: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("sort", sort);
-    params.delete("page"); // Reset to first page when sorting
+    params.delete("page");
     router.push(`/?${params.toString()}`);
   };
 

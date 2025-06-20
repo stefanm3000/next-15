@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
+import { Gallery } from "@/components/gallery";
 import { notFound } from "next/navigation";
+import { BackLink } from "@/components/back-link";
 
 interface MovieData {
   imdbID: string;
@@ -64,41 +64,17 @@ export default async function MovieDetailPage({
   return (
     <div className="min-h-screen bg-black">
       <div className="container mx-auto px-4 py-8">
-        <Link
-          href="/"
-          className="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-8 font-mono"
-          prefetch
-        >
-          <svg
-            className="w-4 h-4 mr-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          back to search
-        </Link>
+        <BackLink />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <div className="sticky top-8">
               {movie.Poster && movie.Poster !== "N/A" ? (
-                <div className="relative aspect-[2/3] rounded-lg overflow-hidden">
-                  <Image
-                    src={movie.Poster}
-                    alt={movie.Title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    priority
-                  />
-                </div>
+                <Gallery
+                  imdb={movie.imdbID}
+                  src={movie.Poster}
+                  alt={movie.Title}
+                />
               ) : (
                 <div className="aspect-[2/3] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center">
                   <div className="text-gray-500 text-center p-4">

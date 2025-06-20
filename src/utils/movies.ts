@@ -55,20 +55,6 @@ export function sortMovies(
   const sortedMovies = [...movies];
 
   switch (sortOption) {
-    case "rating-high":
-      return sortedMovies.sort((a, b) => {
-        const ratingA = parseFloat(a.imdbRating) || 0;
-        const ratingB = parseFloat(b.imdbRating) || 0;
-        return ratingB - ratingA;
-      });
-
-    case "rating-low":
-      return sortedMovies.sort((a, b) => {
-        const ratingA = parseFloat(a.imdbRating) || 0;
-        const ratingB = parseFloat(b.imdbRating) || 0;
-        return ratingA - ratingB;
-      });
-
     case "year-new":
       return sortedMovies.sort((a, b) => {
         const yearA = parseInt(a.Year) || 0;
