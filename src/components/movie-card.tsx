@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { type MovieDetail } from "@/utils/movies";
-import { SlideTransition } from "./slide-transition";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 interface MovieCardProps {
   movie: MovieDetail;
@@ -14,7 +14,7 @@ export function MovieCard({ movie }: MovieCardProps) {
     <Link
       href={`/movie/${movie.imdbID}`}
       className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform border border-white/10"
-      prefetch={true}
+      prefetch
       onMouseEnter={() => {
         const link = document.createElement("link");
         link.rel = "prefetch";
@@ -24,7 +24,7 @@ export function MovieCard({ movie }: MovieCardProps) {
     >
       <div className="relative aspect-[2/3]">
         {movie.Poster && movie.Poster !== "N/A" ? (
-          <SlideTransition name={`movie-poster-${movie.imdbID}`}>
+          <ViewTransition name={`movie-poster-${movie.imdbID}`}>
             <Image
               loading="eager"
               placeholder="empty"
@@ -35,7 +35,7 @@ export function MovieCard({ movie }: MovieCardProps) {
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
               priority={true}
             />
-          </SlideTransition>
+          </ViewTransition>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
             <div className="text-gray-500 text-center p-4">
@@ -58,9 +58,11 @@ export function MovieCard({ movie }: MovieCardProps) {
       </div>
 
       <div className="p-4">
-        <h3 className="font-semibold text-white text-sm line-clamp-2 mb-2 group-hover:text-gray-300 transition-colors font-mono">
-          {movie.Title}
-        </h3>
+        <ViewTransition name={`movie-title-${movie.imdbID}`}>
+          <h3 className="font-semibold text-white text-sm line-clamp-2 mb-2 group-hover:text-gray-300 transition-colors font-mono">
+            {movie.Title}
+          </h3>
+        </ViewTransition>
 
         {movie.imdbRating && (
           <div className="flex items-center space-x-2 mb-2">

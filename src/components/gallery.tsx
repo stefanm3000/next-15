@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { SlideTransition } from "./slide-transition";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 export const Gallery = ({
   imdb,
@@ -13,7 +13,7 @@ export const Gallery = ({
   alt: string;
 }) => {
   return (
-    <SlideTransition name={`movie-poster-${imdb}`}>
+    <ViewTransition name={`movie-poster-${imdb}`}>
       <div className="relative aspect-[2/3] rounded-lg overflow-hidden">
         <Image
           src={src}
@@ -24,6 +24,6 @@ export const Gallery = ({
           priority
         />
       </div>
-    </SlideTransition>
+    </ViewTransition>
   );
 };

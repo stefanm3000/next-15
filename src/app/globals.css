@@ -24,3 +24,31 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@supports (view-transition-name: test) {
+  [data-support] [data-support-yes] {
+    display: inline;
+  }
+  [data-support] [data-support-no] {
+    display: none;
+  }
+}
+
+@supports not (view-transition-name: test) {
+  [data-support] [data-support-yes] {
+    display: none;
+  }
+  [data-support] [data-support-no] {
+    display: inline;
+  }
+}
+
+/* Safari */
+@supports (-webkit-hyphens: none) and (not (-moz-appearance: none)) {
+  [data-support] [data-support-yes] {
+    display: none;
+  }
+  [data-support] [data-support-no] {
+    display: inline;
+  }
+}
