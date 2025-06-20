@@ -17,7 +17,7 @@ interface SearchParams {
 }
 
 interface HomeProps {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
