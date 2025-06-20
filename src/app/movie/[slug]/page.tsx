@@ -1,8 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
-interface MovieDetail {
+interface MovieDetailPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+interface MovieData {
   imdbID: string;
   Title: string;
   Year: string;
@@ -19,7 +25,6 @@ interface MovieDetail {
     Source: string;
     Value: string;
   }>;
-  Metascore: string;
   imdbRating: string;
   imdbVotes: string;
   Type: string;
@@ -30,50 +35,11 @@ interface MovieDetail {
   Response: string;
 }
 
-interface MoviePageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export async function generateStaticParams() {
-  const popularSearches = [
-    "marvel",
-    "batman",
-    "spider",
-    "star wars",
-    "harry potter",
-  ];
-  const staticParams: { slug: string }[] = [];
-
-  for (const search of popularSearches) {
-    try {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=7f887362&s=${encodeURIComponent(
-          search
-        )}`,
-        { next: { revalidate: 86400 } }
-      );
-      const data = await response.json();
-
-      if (data.Search) {
-        data.Search.slice(0, 5).forEach((movie: MovieDetail) => {
-          staticParams.push({ slug: movie.imdbID });
-        });
-      }
-    } catch (error) {
-      console.error(`Error fetching movies for ${search}:`, error);
-    }
-  }
-
-  return staticParams;
-}
-
-async function getMovieDetails(imdbID: string): Promise<MovieDetail | null> {
+async function getMovieData(imdbID: string): Promise<MovieData | null> {
   try {
     const response = await fetch(
       `http://www.omdbapi.com/?apikey=7f887362&i=${imdbID}`,
-      { next: { revalidate: 86400 } }
+      { next: { revalidate: 3600 } }
     );
 
     const data = await response.json();
@@ -84,49 +50,50 @@ async function getMovieDetails(imdbID: string): Promise<MovieDetail | null> {
 
     return data;
   } catch (error) {
-    console.error("Error fetching movie details:", error);
+    console.error("Error fetching movie data:", error);
     return null;
   }
 }
 
-export default async function MoviePage({ params }: MoviePageProps) {
-  const movie = await getMovieDetails(params.slug);
+export default async function MovieDetailPage({
+  params: paramsPromise,
+}: MovieDetailPageProps) {
+  const params = await paramsPromise;
+  const movie = await getMovieData(params.slug);
 
   if (!movie) {
     notFound();
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-black">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <Link
-            href="/"
-            className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
-            prefetch={true}
+        <Link
+          href="/"
+          className="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-8 font-mono"
+          prefetch
+        >
+          <svg
+            className="w-4 h-4 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Back to Search
-          </Link>
-        </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          back to search
+        </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <div className="sticky top-8">
-              <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-white/10">
-                {movie.Poster && movie.Poster !== "N/A" ? (
+              {movie.Poster && movie.Poster !== "N/A" ? (
+                <div className="relative aspect-[2/3] rounded-lg overflow-hidden">
                   <Image
                     src={movie.Poster}
                     alt={movie.Title}
@@ -135,153 +102,185 @@ export default async function MoviePage({ params }: MoviePageProps) {
                     sizes="(max-width: 1024px) 100vw, 33vw"
                     priority
                   />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
-                    <div className="text-gray-400 text-center p-4">
-                      <svg
-                        className="w-16 h-16 mx-auto mb-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <p>No Image Available</p>
-                    </div>
+                </div>
+              ) : (
+                <div className="aspect-[2/3] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center">
+                  <div className="text-gray-500 text-center p-4">
+                    <svg
+                      className="w-16 h-16 mx-auto mb-4"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <p className="text-sm font-mono">no image available</p>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="lg:col-span-2">
-            <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-              <div className="mb-6">
-                <h1 className="text-3xl font-bold text-white mb-2">
+            <div className="space-y-6">
+              <div>
+                <h1 className="text-4xl font-bold text-white mb-2 font-mono">
                   {movie.Title}
                 </h1>
-                <div className="flex items-center space-x-4 text-gray-300">
+                <div className="flex items-center space-x-4 text-gray-400 font-mono">
                   <span>{movie.Year}</span>
-                  {movie.Rated && <span>• {movie.Rated}</span>}
-                  {movie.Runtime && <span>• {movie.Runtime}</span>}
+                  <span>•</span>
+                  <span>{movie.Runtime}</span>
+                  <span>•</span>
+                  <span className="capitalize">{movie.Type}</span>
                 </div>
               </div>
 
               {movie.imdbRating && (
-                <div className="mb-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-yellow-400 font-bold text-xl">
-                        ★
-                      </span>
-                      <span className="text-white font-semibold">
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-yellow-400 font-bold text-2xl">
+                      ★
+                    </span>
+                    <div>
+                      <div className="text-white font-bold text-xl">
                         {movie.imdbRating}
-                      </span>
-                      <span className="text-gray-400">/10</span>
+                      </div>
+                      <div className="text-gray-400 text-sm font-mono">/10</div>
                     </div>
-                    {movie.imdbVotes && (
-                      <span className="text-gray-400">
-                        ({movie.imdbVotes} votes)
-                      </span>
-                    )}
                   </div>
+                  {movie.imdbVotes && (
+                    <div className="text-gray-400 text-sm font-mono">
+                      {movie.imdbVotes} votes
+                    </div>
+                  )}
                 </div>
               )}
 
               {movie.Plot && (
-                <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-white mb-3">
-                    Plot
+                <div>
+                  <h2 className="text-xl font-semibold text-white mb-3 font-mono">
+                    plot
                   </h2>
-                  <p className="text-gray-300 leading-relaxed">{movie.Plot}</p>
+                  <p className="text-gray-300 leading-relaxed font-mono">
+                    {movie.Plot}
+                  </p>
                 </div>
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {movie.Genre && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      Genre
+                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      genre
                     </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {movie.Genre.split(", ").map((genre, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-purple-500/30 text-purple-200 rounded-full text-sm"
-                        >
-                          {genre}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-gray-300 font-mono">{movie.Genre}</p>
                   </div>
                 )}
 
                 {movie.Director && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      Director
+                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      director
                     </h3>
-                    <p className="text-gray-300">{movie.Director}</p>
-                  </div>
-                )}
-
-                {movie.Actors && (
-                  <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      Cast
-                    </h3>
-                    <p className="text-gray-300">{movie.Actors}</p>
+                    <p className="text-gray-300 font-mono">{movie.Director}</p>
                   </div>
                 )}
 
                 {movie.Writer && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      Writer
+                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      writer
                     </h3>
-                    <p className="text-gray-300">{movie.Writer}</p>
+                    <p className="text-gray-300 font-mono">{movie.Writer}</p>
+                  </div>
+                )}
+
+                {movie.Actors && (
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      cast
+                    </h3>
+                    <p className="text-gray-300 font-mono">{movie.Actors}</p>
                   </div>
                 )}
 
                 {movie.Released && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      Released
+                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      released
                     </h3>
-                    <p className="text-gray-300">{movie.Released}</p>
+                    <p className="text-gray-300 font-mono">{movie.Released}</p>
                   </div>
                 )}
 
-                {movie.BoxOffice && (
+                {movie.Rated && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      Box Office
+                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      rated
                     </h3>
-                    <p className="text-gray-300">{movie.BoxOffice}</p>
+                    <p className="text-gray-300 font-mono">{movie.Rated}</p>
                   </div>
                 )}
               </div>
 
               {movie.Ratings && movie.Ratings.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-white mb-3">
-                    Ratings
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-3 font-mono">
+                    ratings
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="space-y-2">
                     {movie.Ratings.map((rating, index) => (
-                      <div key={index} className="bg-white/5 rounded-lg p-3">
-                        <div className="text-sm text-gray-400">
+                      <div
+                        key={index}
+                        className="flex justify-between items-center bg-white/5 backdrop-blur-md rounded-lg p-3"
+                      >
+                        <span className="text-gray-300 font-mono">
                           {rating.Source}
-                        </div>
-                        <div className="text-white font-semibold">
+                        </span>
+                        <span className="text-white font-semibold font-mono">
                           {rating.Value}
-                        </div>
+                        </span>
                       </div>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {movie.BoxOffice && (
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                    box office
+                  </h3>
+                  <p className="text-gray-300 font-mono">{movie.BoxOffice}</p>
+                </div>
+              )}
+
+              {movie.Production && (
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                    production
+                  </h3>
+                  <p className="text-gray-300 font-mono">{movie.Production}</p>
+                </div>
+              )}
+
+              {movie.Website && movie.Website !== "N/A" && (
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                    website
+                  </h3>
+                  <a
+                    href={movie.Website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 transition-colors font-mono"
+                  >
+                    {movie.Website}
+                  </a>
                 </div>
               )}
             </div>

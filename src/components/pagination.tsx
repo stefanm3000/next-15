@@ -18,38 +18,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
     return `/?${params.toString()}`;
   };
 
-  const getVisiblePages = () => {
-    const delta = 2;
-    const range = [];
-    const rangeWithDots = [];
-
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    if (currentPage - delta > 2) {
-      rangeWithDots.push(1, "...");
-    } else {
-      rangeWithDots.push(1);
-    }
-
-    rangeWithDots.push(...range);
-
-    if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push("...", totalPages);
-    } else {
-      rangeWithDots.push(totalPages);
-    }
-
-    return rangeWithDots;
-  };
-
   const handleMouseEnter = (page: number) => {
-    // Preload the page with search results
     const url = createPageUrl(page);
     const link = document.createElement("link");
     link.rel = "prefetch";
@@ -57,34 +26,34 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
     document.head.appendChild(link);
   };
 
+  const visiblePages = getVisiblePages({ currentPage, totalPages });
+
   if (totalPages <= 1) return null;
 
   return (
     <div className="flex items-center justify-center space-x-2">
-      {/* Previous Button */}
       {currentPage > 1 && (
         <Link
           href={createPageUrl(currentPage - 1)}
-          className="px-3 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/20 transition-colors"
+          className="px-3 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
           prefetch
           onMouseEnter={() => handleMouseEnter(currentPage - 1)}
         >
-          Previous
+          prev
         </Link>
       )}
 
-      {/* Page Numbers */}
-      {getVisiblePages().map((page, index) => (
+      {visiblePages.map((page, index) => (
         <div key={index}>
           {page === "..." ? (
-            <span className="px-3 py-2 text-gray-400">...</span>
+            <span className="px-3 py-2 text-gray-500 font-mono">...</span>
           ) : (
             <Link
               href={createPageUrl(page as number)}
-              className={`px-3 py-2 rounded-lg transition-colors ${
+              className={`px-3 py-2 rounded-lg transition-colors font-mono ${
                 currentPage === page
-                  ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                  : "bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20"
+                  ? "bg-white text-black font-semibold"
+                  : "bg-white/5 backdrop-blur-md border border-white/20 text-white hover:bg-white/10"
               }`}
               prefetch
               onMouseEnter={() => handleMouseEnter(page as number)}
@@ -99,13 +68,49 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
       {currentPage < totalPages && (
         <Link
           href={createPageUrl(currentPage + 1)}
-          className="px-3 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/20 transition-colors"
-          prefetch={true}
+          className="px-3 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
+          prefetch
           onMouseEnter={() => handleMouseEnter(currentPage + 1)}
         >
-          Next
+          next
         </Link>
       )}
     </div>
   );
 }
+
+const getVisiblePages = ({
+  currentPage,
+  totalPages,
+}: {
+  currentPage: number;
+  totalPages: number;
+}) => {
+  const delta = 2;
+  const range = [];
+  const rangeWithDots = [];
+
+  for (
+    let i = Math.max(2, currentPage - delta);
+    i <= Math.min(totalPages - 1, currentPage + delta);
+    i++
+  ) {
+    range.push(i);
+  }
+
+  if (currentPage - delta > 2) {
+    rangeWithDots.push(1, "...");
+  } else {
+    rangeWithDots.push(1);
+  }
+
+  rangeWithDots.push(...range);
+
+  if (currentPage + delta < totalPages - 1) {
+    rangeWithDots.push("...", totalPages);
+  } else {
+    rangeWithDots.push(totalPages);
+  }
+
+  return rangeWithDots;
+};
