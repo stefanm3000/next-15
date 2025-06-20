@@ -17,9 +17,9 @@ interface HomeProps {
 
 const getMovies = async (query: string, page: number) => {
   const response = await fetch(
-    `http://www.omdbapi.com/?apikey=7f887362&s=${encodeURIComponent(
-      query
-    )}&page=${page}`,
+    `http://www.omdbapi.com/?apikey=${
+      process.env.SECRET_OMDB_API_KEY
+    }&s=${encodeURIComponent(query)}&page=${page}`,
     { next: { revalidate: 3600 } }
   );
 

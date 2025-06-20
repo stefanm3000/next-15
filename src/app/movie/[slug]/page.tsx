@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { Details } from "./page-client";
 
 export interface MovieData {
@@ -31,7 +31,7 @@ export interface MovieData {
 async function getMovieData(imdbID: string): Promise<MovieData | null> {
   try {
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=7f887362&i=${imdbID}`,
+      `http://www.omdbapi.com/?apikey=${process.env.SECRET_OMDB_API_KEY}&i=${imdbID}`,
       { next: { revalidate: 3600 } }
     );
 
@@ -54,11 +54,11 @@ export default async function MovieDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const movie = await getMovieData(slug);
+  const moviePromise = getMovieData(slug);
 
-  if (!movie) {
-    notFound();
-  }
-
-  return <Details movie={movie} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Details moviePromise={moviePromise} />
+    </Suspense>
+  );
 }

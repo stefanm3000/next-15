@@ -25,6 +25,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+[data-support-yes],
+[data-support-no] {
+  display: none;
+}
+
 @supports (view-transition-name: test) {
   [data-support] [data-support-yes] {
     display: inline;
