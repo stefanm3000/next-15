@@ -2,12 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-interface MovieDetailPageProps {
-  params: {
-    slug: string;
-  };
-}
-
 interface MovieData {
   imdbID: string;
   Title: string;
@@ -56,10 +50,12 @@ async function getMovieData(imdbID: string): Promise<MovieData | null> {
 }
 
 export default async function MovieDetailPage({
-  params: paramsPromise,
-}: MovieDetailPageProps) {
-  const params = await paramsPromise;
-  const movie = await getMovieData(params.slug);
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const movie = await getMovieData(slug);
 
   if (!movie) {
     notFound();
