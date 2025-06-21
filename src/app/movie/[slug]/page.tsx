@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { Details } from "./page-client";
+import { MovieSkeleton } from "@/components/movie-skeleton";
 
 export interface MovieData {
   imdbID: string;
@@ -57,7 +58,7 @@ export default async function MovieDetailPage({
   const moviePromise = getMovieData(slug);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<MovieSkeleton />}>
       <Details moviePromise={moviePromise} />
     </Suspense>
   );
