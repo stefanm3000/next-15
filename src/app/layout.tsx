@@ -1,3 +1,4 @@
+import { CodeIcon, MailIcon } from "lucide-react";
 import "./globals.css";
 
 import type { Metadata } from "next";
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen bg-black flex flex-col">
           <div className="container mx-auto px-4 py-8">
             <header className="flex justify-between items-start py-2">
               <Link
@@ -42,6 +43,23 @@ export default function RootLayout({
 
             <main>{children}</main>
           </div>
+
+          <footer className="text-center text-gray-400 font-mono py-4 mt-auto gap-4 flex justify-center items-center">
+            <div className="container flex justify-end gap-4">
+              <a href="mailto:stefanmilenkovic3000@gmail.com">
+                <MailIcon
+                  size={48}
+                  className="hover:text-amber-300 transition-colors duration-300"
+                />
+              </a>
+              <a href="https://github.com/stefanm3000">
+                <CodeIcon
+                  size={48}
+                  className="hover:text-amber-300 transition-colors duration-300"
+                />
+              </a>
+            </div>
+          </footer>
         </div>
       </body>
     </html>
