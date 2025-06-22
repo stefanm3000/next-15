@@ -43,7 +43,7 @@ export default async function IndexPage() {
             <Link
               key={post._id}
               href={`/blog/${post.slug.current}`}
-              className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform hover:scale-105"
+              className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
             >
               <div className="relative aspect-[16/9]">
                 {post.image && urlFor(post.image) ? (
@@ -51,7 +51,7 @@ export default async function IndexPage() {
                     src={urlFor(post.image)?.width(400).height(225).url() || ""}
                     alt={post.title}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover transition-transform duration-300"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
