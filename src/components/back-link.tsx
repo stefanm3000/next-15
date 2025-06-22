@@ -11,7 +11,7 @@ export const BackLink = () => {
       className="cursor-pointer inline-flex items-center text-gray-400 hover:text-white transition-colors mb-8 font-mono"
       onClick={() => router.back()}
     >
-      <ArrowLeft size={16} /> back
+      <ArrowLeft size={16} className="mr-2" /> back
     </button>
   );
 };
