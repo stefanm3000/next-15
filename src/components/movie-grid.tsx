@@ -2,6 +2,7 @@
 
 import { MovieCard } from "./movie-card";
 import { type MovieDetail } from "@/utils/movies";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 interface MovieGridProps {
   movies: MovieDetail[];
@@ -22,10 +23,12 @@ export function MovieGrid({ movies }: MovieGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-      {movies.map((movie) => (
-        <MovieCard key={movie.imdbID} movie={movie} />
-      ))}
-    </div>
+    <ViewTransition>
+      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        {movies.map((movie) => (
+          <MovieCard key={movie.imdbID} movie={movie} />
+        ))}
+      </div>
+    </ViewTransition>
   );
 }

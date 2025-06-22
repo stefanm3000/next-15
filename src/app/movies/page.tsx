@@ -41,7 +41,7 @@ const getMovies = async (
   return { movies, totalPages, totalResults };
 };
 
-export default async function Home({ searchParams }: HomeProps) {
+export default async function MoviesPage({ searchParams }: HomeProps) {
   const { s, page } = await searchParams;
 
   const query = s || "batman";
@@ -53,7 +53,7 @@ export default async function Home({ searchParams }: HomeProps) {
     <>
       <div className="mb-8">
         <ViewTransition name="movies">
-          <h1 className="text-2xl font-bold mb-2 text-white font-mono">
+          <h1 className="text-4xl font-bold mb-2 text-white font-mono">
             <Link
               className="hover:text-amber-300 transition-colors duration-300"
               href="/movies"

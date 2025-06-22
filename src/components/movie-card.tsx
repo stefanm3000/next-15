@@ -22,11 +22,10 @@ export function MovieCard({ movie }: MovieCardProps) {
           <ViewTransition name={`movie-poster-${movie.imdbID}`}>
             <Image
               loading="eager"
-              placeholder="empty"
               src={movie.Poster}
               alt={movie.Title}
               fill
-              className="object-cover transition-transform duration-300"
+              className="object-cover"
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
               priority={true}
             />

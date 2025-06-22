@@ -14,16 +14,19 @@ export function Pagination({ totalPages }: PaginationProps) {
   const createPageUrl = (page: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());
-    return `/?${params.toString()}`;
+    return `/movies?${params.toString()}`;
   };
 
   const visiblePages = getVisiblePages({ currentPage, totalPages });
 
   if (totalPages <= 1) return null;
 
+  const showPrev = currentPage > 1;
+  const showNext = currentPage < totalPages;
+
   return (
     <div className="flex items-center justify-center space-x-2">
-      {currentPage > 1 && (
+      {showPrev && (
         <Link
           href={createPageUrl(currentPage - 1)}
           className="px-3 py-2 bg-black-50/50 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
@@ -53,7 +56,7 @@ export function Pagination({ totalPages }: PaginationProps) {
         </div>
       ))}
 
-      {currentPage < totalPages && (
+      {showNext && (
         <Link
           href={createPageUrl(currentPage + 1)}
           className="px-3 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
