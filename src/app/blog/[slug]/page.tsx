@@ -5,6 +5,7 @@ import { client } from "@/sanity/client";
 import Link from "next/link";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import { ArrowLeft } from "lucide-react";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 
@@ -17,7 +18,11 @@ const urlFor = (source: SanityImageSource) =>
 const options = { next: { revalidate: 30 } };
 
 export async function generateStaticParams() {
-  const posts = await client.fetch<SanityDocument[]>(POST_QUERY, {}, options);
+  const posts = await client.fetch<SanityDocument[]>(
+    `*[_type == "post" && defined(slug.current)]{slug}`,
+    {},
+    options,
+  );
   return posts.map((post) => ({ slug: post.slug.current }));
 }
 
@@ -28,7 +33,11 @@ export default async function PostPage({
 }) {
   const params = await paramsPromise;
 
-  const post = await client.fetch<SanityDocument>(POST_QUERY, params, options);
+  const post = await client.fetch<SanityDocument>(
+    POST_QUERY,
+    { slug: params.slug },
+    options,
+  );
   const postImageUrl = post.image
     ? urlFor(post.image)?.width(550).height(310).url()
     : null;
@@ -40,33 +49,23 @@ export default async function PostPage({
           href="/blog"
           className="inline-flex items-center space-x-2 text-gray-400 hover:text-white transition-colors mb-8 font-mono text-sm"
         >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ArrowLeft size={16} />
           <span>back to blog</span>
         </Link>
 
         <article className="space-y-8">
           {postImageUrl && (
             <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-900">
-              <Image
-                src={postImageUrl}
-                alt={post.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 1024px"
-                priority
-              />
+              <ViewTransition name={`blog-post-image-${params.slug}`}>
+                <Image
+                  src={postImageUrl}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  priority
+                />
+              </ViewTransition>
             </div>
           )}
 

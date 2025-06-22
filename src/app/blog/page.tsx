@@ -46,13 +46,15 @@ export default async function IndexPage() {
           >
             <div className="relative aspect-[16/9]">
               {post.image && urlFor(post.image) ? (
-                <Image
-                  src={urlFor(post.image)?.width(400).height(225).url() || ""}
-                  alt={post.title}
-                  fill
-                  className="object-cover transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+                <ViewTransition name={`blog-post-image-${post.slug.current}`}>
+                  <Image
+                    src={urlFor(post.image)?.width(400).height(225).url() || ""}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </ViewTransition>
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
                   <div className="text-gray-500 text-center p-4 flex flex-col items-center gap-2">
