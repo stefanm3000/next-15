@@ -26,7 +26,6 @@ export function SearchForm() {
     <form onSubmit={handleSubmit} className="max-w-2xl">
       <div className="flex gap-2">
         <input
-          autoFocus
           key={query}
           name="search"
           type="text"
