@@ -10,14 +10,12 @@ export default function MoviesLayout({
     <>
       <div className="mb-8">
         <ViewTransition name="movies">
-          <h1 className="text-4xl font-bold mb-2 text-white font-mono">
-            <Link
-              className="hover:text-amber-300 transition-colors duration-300"
-              href="/movies"
-            >
-              snappy imdb
-            </Link>
-          </h1>
+          <Link
+            className="text-2xl font-bold mb-8 text-white font-mono hover:text-amber-300 transition-colors duration-300"
+            href="/movies"
+          >
+            snappy imdb
+          </Link>
         </ViewTransition>
       </div>
 

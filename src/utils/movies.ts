@@ -1,3 +1,5 @@
+import { SortOption } from "@/components/sort-by";
+
 export interface MovieDetail {
   imdbID: string;
   Title: string;
@@ -9,48 +11,9 @@ export interface MovieDetail {
   Genre?: string;
 }
 
-export interface SearchResult {
-  imdbID: string;
-  Title: string;
-  Year: string;
-  Poster: string;
-  Type: string;
-}
-
-export async function getMovieDetails(
-  imdbID: string
-): Promise<MovieDetail | null> {
-  try {
-    const response = await fetch(
-      `http://www.omdbapi.com/?apikey=7f887362&i=${imdbID}`,
-      { next: { revalidate: 3600 } }
-    );
-
-    const data = await response.json();
-
-    if (data.Response === "False") {
-      return null;
-    }
-
-    return {
-      imdbID: data.imdbID,
-      Title: data.Title,
-      Year: data.Year,
-      Poster: data.Poster,
-      Type: data.Type,
-      imdbRating: data.imdbRating,
-      imdbVotes: data.imdbVotes,
-      Genre: data.Genre,
-    };
-  } catch (error) {
-    console.error("Error fetching movie details:", error);
-    return null;
-  }
-}
-
 export function sortMovies(
   movies: MovieDetail[],
-  sortOption: string
+  sortOption: SortOption,
 ): MovieDetail[] {
   const sortedMovies = [...movies];
 

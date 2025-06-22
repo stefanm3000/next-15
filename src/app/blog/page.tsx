@@ -1,5 +1,4 @@
 import { type SanityDocument } from "next-sanity";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
@@ -31,24 +30,18 @@ export default async function BlogPostPage() {
 
   return (
     <div>
-      <ViewTransition name="blog">
-        <h1 className="text-2xl font-bold mb-8 text-white font-mono">blog</h1>
-      </ViewTransition>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => {
-          const src = post.image
-            ? urlFor(post.image)?.width(400).height(225).url()
-            : null;
+        {posts.map(({ _id, image, title, slug, excerpt, publishedAt }) => {
+          const src = urlFor(image)?.width(400).height(225).url() ?? null;
 
           return (
             <BlogPostCard
-              key={post._id}
-              imageSrc={src || null}
-              title={post.title}
-              slug={post.slug.current}
-              excerpt={post.excerpt}
-              publishedAt={post.publishedAt}
+              key={_id}
+              imageSrc={src}
+              title={title}
+              slug={slug.current}
+              excerpt={excerpt}
+              publishedAt={publishedAt}
             />
           );
         })}
