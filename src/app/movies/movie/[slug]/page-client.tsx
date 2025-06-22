@@ -4,6 +4,7 @@ import Image from "next/image";
 import { BackLink } from "@/components/back-link";
 import { use, unstable_ViewTransition as ViewTransition } from "react";
 import { MovieData } from "./page";
+import { ImageOff } from "lucide-react";
 
 export function Details({
   moviePromise,
@@ -41,17 +42,8 @@ export function Details({
                   ) : (
                     <div className="aspect-[2/3] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center">
                       <div className="text-gray-500 text-center p-4">
-                        <svg
-                          className="w-16 h-16 mx-auto mb-4"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                        <ImageOff size={48} />
+
                         <p className="text-sm font-mono">no image available</p>
                       </div>
                     </div>

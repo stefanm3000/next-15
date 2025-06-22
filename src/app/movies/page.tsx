@@ -1,10 +1,6 @@
 import { Suspense } from "react";
-import { SearchForm } from "@/components/search-form";
-import { SortBy } from "@/components/sort-by";
 import { MovieList } from "@/components/movie-list";
 import { MovieDetail } from "@/utils/movies";
-import { unstable_ViewTransition as ViewTransition } from "react";
-import Link from "next/link";
 import { MovieGridSkeleton } from "@/components/movie-skeleton";
 
 const ITEMS_PER_PAGE = 10;
@@ -50,28 +46,8 @@ export default async function MoviesPage({ searchParams }: HomeProps) {
   const moviesPromise = getMovies(query, currentPage);
 
   return (
-    <>
-      <div className="mb-8">
-        <ViewTransition name="movies">
-          <h1 className="text-4xl font-bold mb-2 text-white font-mono">
-            <Link
-              className="hover:text-amber-300 transition-colors duration-300"
-              href="/movies"
-            >
-              snappy imdb
-            </Link>
-          </h1>
-        </ViewTransition>
-      </div>
-
-      <div className="sticky top-0 z-10 mb-8 py-4 flex flex-nowrap justify-center items-center gap-4">
-        <SearchForm />
-        <SortBy />
-      </div>
-
-      <Suspense fallback={<MovieGridSkeleton />}>
-        <MovieList moviesPromise={moviesPromise} />
-      </Suspense>
-    </>
+    <Suspense fallback={<MovieGridSkeleton />}>
+      <MovieList moviesPromise={moviesPromise} />
+    </Suspense>
   );
 }
