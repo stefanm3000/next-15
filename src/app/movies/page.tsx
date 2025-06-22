@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { MovieList } from "@/components/movie-list";
 import { MovieDetail } from "@/utils/movies";
 import { MovieGridSkeleton } from "@/components/movie-skeleton";
+import { SearchForm } from "@/components/search-form";
+import { SortBy } from "@/components/sort-by";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -46,8 +48,15 @@ export default async function MoviesPage({ searchParams }: HomeProps) {
   const moviesPromise = getMovies(query, currentPage);
 
   return (
-    <Suspense fallback={<MovieGridSkeleton />}>
-      <MovieList moviesPromise={moviesPromise} />
-    </Suspense>
+    <>
+      <div className="sticky top-0 z-10 mb-8 py-4 flex flex-nowrap justify-center items-center gap-4">
+        <SearchForm />
+        <SortBy />
+      </div>
+
+      <Suspense fallback={<MovieGridSkeleton />}>
+        <MovieList moviesPromise={moviesPromise} />
+      </Suspense>
+    </>
   );
 }
