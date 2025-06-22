@@ -27,15 +27,12 @@ export const MovieList = ({
 
   return (
     <>
-      {query && (
-        <div className="mb-6 text-center">
-          <p className="text-gray-400 font-mono">
-            found{" "}
-            <span className="text-white font-semibold">{totalResults}</span>{" "}
-            results for &ldquo;{query}&rdquo;
-          </p>
-        </div>
-      )}
+      <div className={`mb-6 text-center ${query ? "block" : "hidden"}`}>
+        <p className="text-gray-400 font-mono">
+          found <span className="text-white font-semibold">{totalResults}</span>{" "}
+          results for &ldquo;{query}&rdquo;
+        </p>
+      </div>
 
       <MovieGrid movies={sortedMovies} />
 
