@@ -33,7 +33,7 @@ async function getMovieData(imdbID: string): Promise<MovieData | null> {
   try {
     const response = await fetch(
       `http://www.omdbapi.com/?apikey=${process.env.SECRET_OMDB_API_KEY}&i=${imdbID}`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 3600 } },
     );
 
     const data = await response.json();

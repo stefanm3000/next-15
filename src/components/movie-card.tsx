@@ -12,13 +12,13 @@ interface MovieCardProps {
 export function MovieCard({ movie }: MovieCardProps) {
   return (
     <Link
-      href={`/movie/${movie.imdbID}`}
+      href={`/movies/movie/${movie.imdbID}`}
       className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform border border-white/10"
       prefetch
       onMouseEnter={() => {
         const link = document.createElement("link");
         link.rel = "prefetch";
-        link.href = `/movie/${movie.imdbID}`;
+        link.href = `/movies/movie/${movie.imdbID}`;
         document.head.appendChild(link);
       }}
     >

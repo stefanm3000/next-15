@@ -18,7 +18,7 @@ export function SearchForm() {
       params.delete("page");
       params.delete("sort");
 
-      router.push(`/?${params.toString()}`);
+      router.push(`/movies?${params.toString()}`);
     }
   };
 

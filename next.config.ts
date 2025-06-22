@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "m.media-amazon.com",
       },
+      {
+        hostname: "cdn.sanity.io",
+      },
     ],
   },
 };

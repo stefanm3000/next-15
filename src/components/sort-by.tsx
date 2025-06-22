@@ -32,7 +32,7 @@ export function SortBy() {
     const params = new URLSearchParams(searchParams);
     params.set("sort", sort);
     params.delete("page");
-    router.push(`/?${params.toString()}`);
+    router.push(`/movies?${params.toString()}`);
   };
 
   return (
