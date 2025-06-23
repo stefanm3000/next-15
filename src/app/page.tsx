@@ -1,5 +1,5 @@
 import { Film, BookOpen } from "lucide-react";
-import { ProjectLink } from "@/components/project-link";
+import { ProjectLink } from "@/app/(components)/project-link";
 
 export default async function Home() {
   return (

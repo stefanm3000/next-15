@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { Details } from "./page-client";
-import { MovieSkeleton } from "@/components/movie-skeleton";
+import { Details } from "./(components)/movie-details";
+import { MovieSkeleton } from "@/app/movies/(components)/movie-skeletons";
 
 export interface MovieData {
   imdbID: string;

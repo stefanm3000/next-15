@@ -11,8 +11,8 @@ import imageUrlBuilder from "@sanity/image-url";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 
-export const { projectId, dataset } = client.config();
-export const urlFor = (source: SanityImageSource) =>
+const { projectId, dataset } = client.config();
+const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;

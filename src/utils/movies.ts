@@ -1,4 +1,4 @@
-import { SortOption } from "@/components/sort-by";
+import { SortOption } from "@/app/movies/(components)/sort-by";
 
 export interface MovieDetail {
   imdbID: string;
