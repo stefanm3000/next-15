@@ -46,8 +46,8 @@ export default function RootLayout({
             <main>{children}</main>
           </div>
 
-          <footer className="text-center text-gray-400 font-mono py-4 mt-auto gap-4 flex justify-center items-center">
-            <div className="container flex justify-end gap-4">
+          <footer className="px-4 text-center text-gray-400 font-mono py-4 mt-auto gap-4 flex justify-center items-center ">
+            <div className="flex gap-4 border border-white/20 rounded-lg p-2 ml-auto">
               <a href="mailto:stefanmilenkovic3000@gmail.com">
                 <MailIcon className="hover:text-amber-300 transition-colors duration-300 size-6" />
               </a>
