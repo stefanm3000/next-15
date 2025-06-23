@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    config.externals = [
+      ...(config.externals || []),
+      { "socket.io-client": "socket.io-client" },
+    ];
+    return config;
+  },
 };
 
 export default nextConfig;
