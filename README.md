@@ -1,6 +1,7 @@
 # next.js 15 playground
 
 a sandbox for experimenting with the latest and greatest features of [next.js 15+](https://nextjs.org).
+
 live over at [https://next-15-weld.vercel.app/](https://next-15-weld.vercel.app/)
 
 ## what is this?
