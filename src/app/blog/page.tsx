@@ -28,6 +28,18 @@ const options = { next: { revalidate: 30 } };
 export default async function BlogPostPage() {
   const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
 
+  const noPosts = posts.length === 0;
+
+  if (noPosts) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-gray-400 text-lg mb-4 font-mono">
+          no posts found
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -46,17 +58,6 @@ export default async function BlogPostPage() {
           );
         })}
       </div>
-
-      {posts.length === 0 && (
-        <div className="text-center py-12">
-          <div className="text-gray-400 text-lg mb-4 font-mono">
-            no posts found
-          </div>
-          <p className="text-gray-500 font-mono">
-            check back later for new content
-          </p>
-        </div>
-      )}
     </div>
   );
 }
