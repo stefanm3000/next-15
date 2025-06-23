@@ -4,8 +4,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { CodeIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
-import { SocketProvider } from "./contexts/socket-context";
-import { UserCounter } from "./(components)/user-counter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,10 +54,6 @@ export default function RootLayout({
               </a>
             </div>
           </footer>
-
-          <SocketProvider>
-            <UserCounter />
-          </SocketProvider>
         </div>
       </body>
     </html>
