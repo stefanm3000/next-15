@@ -5,6 +5,7 @@ import { MovieGrid } from "./movie-grid";
 import { Pagination } from "./pagination";
 import { use } from "react";
 import { useSearchParams } from "next/navigation";
+import { SortOption } from "./sort-by";
 
 export const MovieList = ({
   moviesPromise,
@@ -20,7 +21,7 @@ export const MovieList = ({
 
   const query = searchParams.get("s");
 
-  const sort = searchParams.get("sort") || "default";
+  const sort = (searchParams.get("sort") as SortOption) || "default";
   const sortedMovies = sortMovies(movies, sort);
 
   const showPagination = totalPages > 1 && sortedMovies.length > 0;
