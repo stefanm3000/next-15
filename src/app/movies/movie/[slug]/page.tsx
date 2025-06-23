@@ -29,6 +29,19 @@ export interface MovieData {
   Response: string;
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const movie = await getMovieData(slug);
+  return {
+    title: movie?.Title,
+    description: movie?.Plot,
+  };
+}
+
 async function getMovieData(imdbID: string): Promise<MovieData | null> {
   try {
     const response = await fetch(

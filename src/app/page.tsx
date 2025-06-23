@@ -1,7 +1,13 @@
 import { Film, BookOpen } from "lucide-react";
 import { ProjectLink } from "@/app/(components)/project-link";
+import { Metadata } from "next";
 
-export default async function Home() {
+export const metadata: Metadata = {
+  title: "next 15",
+  description: "- the next 15+ playground",
+};
+
+export default function Home() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
       <ProjectLink

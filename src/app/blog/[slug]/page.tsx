@@ -12,6 +12,7 @@ import imageUrlBuilder from "@sanity/image-url";
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 
 const { projectId, dataset } = client.config();
+
 const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
@@ -19,8 +20,23 @@ const urlFor = (source: SanityImageSource) =>
 
 const options = { next: { revalidate: 30 } };
 
-export const revalidate = 3600;
-export const dynamicParams = true;
+export async function generateMetadata({
+  params: paramsPromise,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const params = await paramsPromise;
+  const post = await client.fetch<SanityDocument>(
+    POST_QUERY,
+    { slug: params.slug },
+    options,
+  );
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+  };
+}
 
 export async function generateStaticParams() {
   const posts = await client.fetch<SanityDocument[]>(
@@ -30,6 +46,9 @@ export async function generateStaticParams() {
   );
   return posts.map((post) => ({ slug: post.slug.current }));
 }
+
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 export default async function PostPage({
   params: paramsPromise,

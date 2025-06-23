@@ -4,6 +4,7 @@ import { MovieGridSkeleton } from "@/app/movies/(components)/movie-skeletons";
 import { SearchForm } from "@/app/movies/(components)/search-form";
 import { SortBy } from "@/app/movies/(components)/sort-by";
 import { getMovies } from "./actions";
+import { Metadata } from "next";
 
 interface SearchParams {
   s?: string;
@@ -14,6 +15,11 @@ interface SearchParams {
 interface HomeProps {
   searchParams: Promise<SearchParams>;
 }
+
+export const metadata: Metadata = {
+  title: "Movies",
+  description: "Explore a collection of movies",
+};
 
 export default async function MoviesPage({ searchParams }: HomeProps) {
   const { s, page } = await searchParams;
