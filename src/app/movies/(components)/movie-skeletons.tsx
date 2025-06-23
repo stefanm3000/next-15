@@ -83,7 +83,12 @@ export function MovieGridSkeleton({ count = 10 }: { count?: number }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
       {Array.from({ length: count }).map((_, index) => (
-        <MovieSkeleton key={index} />
+        <div
+          key={index}
+          className="aspect-[2/3] rounded-lg bg-gradient-to-br from-gray-800 to-gray-700 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+        </div>
       ))}
     </div>
   );
