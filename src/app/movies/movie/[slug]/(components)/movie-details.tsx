@@ -21,11 +21,11 @@ export function Details({
     <ViewTransition>
       <div className="min-h-screen bg-black">
         <div className="container mx-auto px-4 py-8">
-          <BackLink />
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1">
               <div className="sticky top-8">
+                <BackLink />
+
                 <ViewTransition name={`movie-poster-${movie.imdbID}`}>
                   {movie.Poster && movie.Poster !== "N/A" ? (
                     <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-slate-900/50">
