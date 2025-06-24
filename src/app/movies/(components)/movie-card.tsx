@@ -5,17 +5,22 @@ import Image from "next/image";
 import { type MovieDetail } from "@/utils/movies";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { ImageOff } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 interface MovieCardProps {
   movie: MovieDetail;
 }
 
 export function MovieCard({ movie }: MovieCardProps) {
+  const searchParams = useSearchParams();
+  const searchParamsString = searchParams.toString();
+
   return (
     <Link
-      href={`/movies/movie/${movie.imdbID}`}
+      href={`/movies/movie/${movie.imdbID}?backHref=${searchParamsString}`}
       className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform border border-white/10"
       prefetch
+      as={`/movies/movie/${movie.imdbID}`}
     >
       <div className="relative aspect-[2/3]">
         {movie.Poster && movie.Poster !== "N/A" ? (
