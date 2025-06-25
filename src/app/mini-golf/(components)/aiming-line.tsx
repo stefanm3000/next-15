@@ -13,41 +13,40 @@ export function AimingLine({
   opacity = 1,
   power = 0.5,
 }: AimingLineProps) {
-  const baseLength = 3;
-  const length = baseLength * (0.5 + power); // Scale length based on power
-  const dashCount = 3;
-  const totalGapSize = length * 0.4;
-  const totalDashSize = length - totalGapSize;
-  const dashSize = totalDashSize / dashCount;
-  const gapSize = totalGapSize / (dashCount - 1);
+  const baseLength = 1.5;
+  const length = baseLength * (0.3 + power * 1.7);
+  const dotCount = Math.max(3, Math.min(8, Math.ceil(power * 8))); // More dots for longer lines
 
-  const color = new THREE.Color();
-  color.r = power;
-  color.g = 1 - power * 0.8;
-  color.b = 0;
+  const dots = [];
+  const baseRadius = 0.15;
+  const color = new THREE.Color("#ffffff");
+  const normalizedDirection = direction.clone().normalize();
 
-  const directionCopy = direction.clone().normalize().multiplyScalar(length);
-  const end = start.clone().add(directionCopy);
+  for (let i = 0; i < dotCount; i++) {
+    const t = i / (dotCount - 1); // Position along the line (0 to 1)
+    const position = start
+      .clone()
+      .add(normalizedDirection.clone().multiplyScalar(length * t));
 
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(
-      [start.x, 0.2, start.z, end.x, 0.2, end.z],
-      3,
-    ),
-  );
+    const dotOpacity = opacity * (1 - t * 0.9);
+    const dotRadius = baseRadius * (1 - t * 0.7);
+    const sphereGeometry = new THREE.SphereGeometry(dotRadius, 8, 8);
 
-  const material = new THREE.LineDashedMaterial({
-    color,
-    dashSize,
-    gapSize,
-    opacity,
-    transparent: true,
-  });
+    const material = new THREE.MeshBasicMaterial({
+      color,
+      opacity: dotOpacity,
+      transparent: true,
+    });
 
-  const line = new THREE.Line(geometry, material);
-  line.computeLineDistances();
+    dots.push(
+      <mesh
+        key={i}
+        geometry={sphereGeometry}
+        material={material}
+        position={[position.x, 0.2, position.z]}
+      />,
+    );
+  }
 
-  return <primitive object={line} />;
+  return <group>{dots}</group>;
 }

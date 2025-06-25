@@ -7,57 +7,21 @@ interface ScoreUIProps {
 }
 
 export function ScoreUI({ strokes, gameComplete, onReset }: ScoreUIProps) {
-  return (
-    <Html position={[4, 4, 10]} center>
-      {gameComplete ? (
-        <div
-          style={{
-            background: "rgba(0, 0, 0, 0.8)",
-            padding: "20px",
-            borderRadius: "10px",
-            color: "white",
-            textAlign: "center",
-            fontFamily: "Arial, sans-serif",
-          }}
-        >
-          <h2 style={{ margin: "0 0 10px 0", fontSize: "24px" }}>SCORE!</h2>
-          <p style={{ margin: "0 0 15px 0" }}>
-            Completed in {strokes} {strokes === 1 ? "stroke" : "strokes"}!
+  if (gameComplete)
+    return (
+      <Html position={[8, 1.5, 0]} center>
+        <div className="bg-black/80 p-4 rounded-md text-white text-center backdrop-blur-lg border border-white/20 opacity-80 w-[250px] flex flex-col items-center justify-center">
+          <h2 className="mb-2 text-2xl">👏</h2>
+          <p className="mb-4">
+            completed in {strokes} {strokes === 1 ? "shot" : "shots"}
           </p>
           <button
             onClick={onReset}
-            style={{
-              background: "#22c55e",
-              color: "white",
-              border: "none",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "16px",
-            }}
+            className="cursor-pointer bg-white text-black p-2 rounded-md hover:bg-black hover:text-white transition-all duration-300"
           >
-            Play Again
+            play again
           </button>
         </div>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            width: "150px",
-            flexWrap: "nowrap",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
-            background: "rgba(0, 0, 0, 0.8)",
-            padding: "10px",
-            borderRadius: "5px",
-            color: "white",
-            fontFamily: "Arial, sans-serif",
-          }}
-        >
-          shots taken: {strokes}
-        </div>
-      )}
-    </Html>
-  );
+      </Html>
+    );
 }

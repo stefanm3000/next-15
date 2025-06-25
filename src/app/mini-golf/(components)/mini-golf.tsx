@@ -14,21 +14,27 @@ import { Course } from "./course";
 import { CourseLayout } from "./course-layout";
 import { ScoreUI } from "./score";
 
+const INITIAL_CAMERA_POSITION = new THREE.Vector3(-12, 4, 2);
+const INITIAL_CAMERA_TARGET = new THREE.Vector3(0, 0, 0);
+const INITIAL_BALL_POSITION = new THREE.Vector3(-8, 0.2, 0);
+
 export default function MiniGolfGame() {
   const ballRef = useRef<RapierRigidBody>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const controlsRef = useRef<any>(null);
   const { camera } = useThree();
+  const [resetKey, setResetKey] = useState(0);
 
   // Set initial camera position
   useEffect(() => {
-    camera.position.set(-12, 4, 2);
-    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    camera.position.copy(INITIAL_CAMERA_POSITION);
+    camera.lookAt(INITIAL_CAMERA_TARGET);
   }, [camera]);
 
   const [ballPosition, setBallPosition] = useState<THREE.Vector3>(
-    new THREE.Vector3(-8, 0.2, 0),
+    INITIAL_BALL_POSITION.clone(),
   );
+
   const [gameState, setGameState] = useState<GameState>({
     strokes: 0,
     gameComplete: false,
@@ -45,23 +51,16 @@ export default function MiniGolfGame() {
 
     // Update ball position from physics
     const physicsPosition = ballRef.current.translation();
-    setBallPosition(
-      new THREE.Vector3(
-        physicsPosition.x,
-        physicsPosition.y,
-        physicsPosition.z,
-      ),
+    const newPosition = new THREE.Vector3(
+      physicsPosition.x,
+      physicsPosition.y,
+      physicsPosition.z,
     );
+    setBallPosition(newPosition);
 
     // Update controls target to follow ball
     if (controlsRef.current) {
-      controlsRef.current.target.copy(
-        new THREE.Vector3(
-          physicsPosition.x,
-          physicsPosition.y,
-          physicsPosition.z,
-        ),
-      );
+      controlsRef.current.target.copy(newPosition);
       controlsRef.current.update();
     }
   });
@@ -139,8 +138,15 @@ export default function MiniGolfGame() {
   const resetGame = () => {
     if (!ballRef.current) return;
 
-    // Reset ball position
-    ballRef.current.setTranslation({ x: -8, y: 0.2, z: 0 }, true);
+    // Reset ball position and physics
+    ballRef.current.setTranslation(
+      {
+        x: INITIAL_BALL_POSITION.x,
+        y: INITIAL_BALL_POSITION.y,
+        z: INITIAL_BALL_POSITION.z,
+      },
+      true,
+    );
     ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
     ballRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
 
@@ -151,21 +157,26 @@ export default function MiniGolfGame() {
       isAiming: false,
     });
 
-    // Reset camera
-    camera.position.set(-12, 4, 2);
-    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    // Reset camera and controls
+    camera.position.copy(INITIAL_CAMERA_POSITION);
+    if (controlsRef.current) {
+      controlsRef.current.target.copy(INITIAL_CAMERA_TARGET);
+      controlsRef.current.enabled = true;
+      controlsRef.current.update();
+    }
 
     // Reset UI states
     setDragDistance(0);
     setIsDragging(false);
+    setBallPosition(INITIAL_BALL_POSITION.clone());
 
-    if (controlsRef.current) {
-      controlsRef.current.enabled = true;
-    }
+    // Regenerate obstacles
+    setResetKey((prev) => prev + 1);
   };
 
   const handleBallInHole = () => {
     if (gameState.gameComplete) return;
+
     setGameState((prev) => ({ ...prev, gameComplete: true }));
     if (ballRef.current) {
       ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
@@ -184,7 +195,7 @@ export default function MiniGolfGame() {
         <OrbitControls
           ref={controlsRef}
           enablePan={false}
-          enableZoom={true}
+          enableZoom={false}
           enableRotate={true}
           minPolarAngle={Math.PI / 6}
           maxPolarAngle={Math.PI / 2.2}
@@ -193,7 +204,7 @@ export default function MiniGolfGame() {
           target={ballPosition}
         />
 
-        <CourseLayout />
+        <CourseLayout resetKey={resetKey} />
         <Course onBallInHole={handleBallInHole} />
 
         <Ball
