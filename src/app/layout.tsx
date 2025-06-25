@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen bg-black flex flex-col">
+        <div className="min-h-[100dvh] bg-black flex flex-col">
           <div className="container mx-auto px-4 py-8">
             <header className="flex justify-between items-start py-2">
               <Link
