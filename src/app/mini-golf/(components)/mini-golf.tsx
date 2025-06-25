@@ -117,9 +117,9 @@ export default function MiniGolfGame() {
 
     ballRef.current.applyImpulse(
       {
-        x: aimDirection.x * power * 0.5,
+        x: aimDirection.x * power * 2,
         y: 0,
-        z: aimDirection.z * power * 0.5,
+        z: aimDirection.z * power * 2,
       },
       true,
     );
@@ -208,6 +208,7 @@ export default function MiniGolfGame() {
             start={new THREE.Vector3(ballPosition.x, 0.2, ballPosition.z)}
             direction={aimDirection}
             opacity={Math.max(0.2, 1 - dragDistance / 10)}
+            power={Math.min(dragDistance / 5, 1)}
           />
         )}
 
