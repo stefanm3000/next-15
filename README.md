@@ -14,6 +14,7 @@ this project is a living lab for next.js latest and react canary releases. it in
 - sanity integration for blog
 - search params manipulation on the movies page
 - experimental view transitions
+- a mini golf ⛳️ game using react-three/ fiber + drei + rapier
 
 ## getting Started
 
