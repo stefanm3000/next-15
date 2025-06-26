@@ -15,6 +15,7 @@ this project is a living lab for next.js latest and react canary releases. it in
 - search params manipulation on the movies page
 - experimental view transitions
 - a mini golf ⛳️ game using react-three/ fiber + drei + rapier
+- react compiler for mini golf components
 
 ## getting Started
 
