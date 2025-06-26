@@ -15,6 +15,8 @@ function LoadingScreen() {
 }
 
 export default function MiniGolfPage() {
+  "use memo";
+
   const [isLoading, setIsLoading] = useState(true);
 
   return (

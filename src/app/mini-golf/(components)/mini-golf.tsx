@@ -19,6 +19,7 @@ const INITIAL_CAMERA_TARGET = new THREE.Vector3(0, 0, 0);
 const INITIAL_BALL_POSITION = new THREE.Vector3(-8, 0.2, 0);
 
 export default function MiniGolfGame() {
+  "use memo";
   const ballRef = useRef<RapierRigidBody>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const controlsRef = useRef<any>(null);
