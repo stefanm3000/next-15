@@ -6,7 +6,10 @@ import { useSearchParams } from "next/navigation";
 
 export const BackLink = () => {
   const searchParams = useSearchParams();
-  const backHref = searchParams.get("backHref") || "/movies";
+  const encodedBackHref = searchParams.get("backHref");
+  const backHref = encodedBackHref
+    ? decodeURIComponent(encodedBackHref)
+    : "/movies";
 
   return (
     <Link
