@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { BackLink } from "@/app/movies/movie/[slug]/(components)/back-link";
+import { BackLink } from "./back-link";
 import { use, unstable_ViewTransition as ViewTransition } from "react";
 import { MovieData } from "../page";
 import { ImageOff } from "lucide-react";

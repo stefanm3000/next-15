@@ -3,7 +3,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 import { client } from "@/sanity/client";
-import { BlogPostCard } from "@/app/blog/(components)/blog-post-card";
+import { BlogPostCard } from "@/app/blog/_components/blog-post-card";
 import { Metadata } from "next";
 
 const POSTS_QUERY = `*[

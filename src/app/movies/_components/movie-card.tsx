@@ -6,6 +6,7 @@ import { type MovieDetail } from "@/utils/movies";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { ImageOff } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { Routes } from "@/utils/routes";
 
 interface MovieCardProps {
   movie: MovieDetail;
@@ -15,12 +16,14 @@ export function MovieCard({ movie }: MovieCardProps) {
   const searchParams = useSearchParams();
   const searchParamsString = searchParams.toString();
   const backHref = searchParamsString
-    ? `/movies?${searchParamsString}`
-    : "/movies";
+    ? `${Routes.MOVIES}?${searchParamsString}`
+    : Routes.MOVIES;
+
+  const href = `${Routes.MOVIES}/${movie.imdbID}?back=${encodeURIComponent(backHref)}`;
 
   return (
     <Link
-      href={`/movies/movie/${movie.imdbID}?backHref=${encodeURIComponent(backHref)}`}
+      href={href}
       className="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300 transform border border-white/10"
       prefetch
     >
