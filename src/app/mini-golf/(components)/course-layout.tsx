@@ -31,7 +31,7 @@ function generateRandomObstacles(count: number): Obstacle[] {
 }
 
 export function CourseLayout({ resetKey }: CourseLayoutProps) {
-  const obstacles = useMemo(() => generateRandomObstacles(3), []);
+  const obstacles = useMemo(() => generateRandomObstacles(3), [resetKey]);
 
   return (
     <>
