@@ -1,5 +1,5 @@
 import { RigidBody } from "@react-three/rapier";
-import { Plane, Box } from "@react-three/drei";
+import { Box } from "@react-three/drei";
 import { gradientMaterial } from "./materials";
 import * as THREE from "three";
 
@@ -29,74 +29,124 @@ function generateRandomObstacles(count: number): Obstacle[] {
   });
 }
 
+function CourseWithHole() {
+  "use memo";
+
+  const getGeometry = () => {
+    // Create a rectangular shape for the course
+    const shape = new THREE.Shape();
+    shape.moveTo(-10, -6);
+    shape.lineTo(10, -6);
+    shape.lineTo(10, 6);
+    shape.lineTo(-10, 6);
+    shape.lineTo(-10, -6);
+
+    // Create a circular hole at position [8, 0, 0] with radius 0.75
+    const hole = new THREE.Path();
+    hole.absarc(8, 0, 0.75, 0, Math.PI * 2, false);
+    shape.holes.push(hole);
+
+    // Create geometry from the shape
+    const geometry = new THREE.ShapeGeometry(shape);
+    return geometry;
+  };
+
+  const geometry = getGeometry();
+
+  return (
+    <RigidBody type="fixed" colliders="trimesh">
+      <mesh
+        geometry={geometry}
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, 0, 0]}
+        material={gradientMaterial}
+      />
+    </RigidBody>
+  );
+}
+
+function CourseBorder() {
+  "use memo";
+
+  const borderHeight = 0.8;
+  const borderThickness = 0.5;
+
+  return (
+    <>
+      {/* Four straight walls meeting at corners */}
+      {/* Right wall */}
+      <RigidBody
+        type="fixed"
+        colliders="cuboid"
+        restitution={1.2}
+        friction={0.1}
+      >
+        <Box
+          args={[borderThickness, borderHeight, 12.5]}
+          position={[10, borderHeight / 2, 0]}
+        >
+          <meshLambertMaterial color="#ffffff" />
+        </Box>
+      </RigidBody>
+
+      {/* Left wall */}
+      <RigidBody
+        type="fixed"
+        colliders="cuboid"
+        restitution={1.2}
+        friction={0.1}
+      >
+        <Box
+          args={[borderThickness, borderHeight, 12.5]}
+          position={[-10, borderHeight / 2, 0]}
+        >
+          <meshLambertMaterial color="#ffffff" />
+        </Box>
+      </RigidBody>
+
+      {/* Top wall */}
+      <RigidBody
+        type="fixed"
+        colliders="cuboid"
+        restitution={1.2}
+        friction={0.1}
+      >
+        <Box
+          args={[20, borderHeight, borderThickness]}
+          position={[0, borderHeight / 2, 6]}
+        >
+          <meshLambertMaterial color="#ffffff" />
+        </Box>
+      </RigidBody>
+
+      {/* Bottom wall */}
+      <RigidBody
+        type="fixed"
+        colliders="cuboid"
+        restitution={1.2}
+        friction={0.1}
+      >
+        <Box
+          args={[20, borderHeight, borderThickness]}
+          position={[0, borderHeight / 2, -6]}
+        >
+          <meshLambertMaterial color="#ffffff" />
+        </Box>
+      </RigidBody>
+    </>
+  );
+}
+
 export function CourseLayout({ resetKey }: CourseLayoutProps) {
   "use memo";
   const obstacles = generateRandomObstacles(3);
 
   return (
     <>
-      <RigidBody type="fixed">
-        <Plane
-          args={[20, 12]}
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, 0, 0]}
-          material={gradientMaterial}
-        />
-      </RigidBody>
+      <CourseWithHole />
+      <CourseBorder />
 
-      <group position={[8, 0, 0]}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.001, 0]}>
-          <ringGeometry args={[0.75, 0.8, 32]} />
-          <meshLambertMaterial color="#ffffff" side={THREE.DoubleSide} />
-        </mesh>
-
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-          <circleGeometry args={[0.75, 32]} />
-          <meshBasicMaterial color="#000000" side={THREE.DoubleSide} />
-        </mesh>
-      </group>
-
-      <RigidBody
-        type="fixed"
-        colliders="cuboid"
-        restitution={1.2}
-        friction={0.1}
-      >
-        <Box args={[0.5, 0.5, 12]} position={[10, 0.25, 0]}>
-          <meshLambertMaterial color="#ffffff" />
-        </Box>
-      </RigidBody>
-      <RigidBody
-        type="fixed"
-        colliders="cuboid"
-        restitution={1.2}
-        friction={0.1}
-      >
-        <Box args={[0.5, 0.5, 12]} position={[-10, 0.25, 0]}>
-          <meshLambertMaterial color="#ffffff" />
-        </Box>
-      </RigidBody>
-      <RigidBody
-        type="fixed"
-        colliders="cuboid"
-        restitution={1.2}
-        friction={0.1}
-      >
-        <Box args={[20, 0.5, 0.5]} position={[0, 0.25, 6]}>
-          <meshLambertMaterial color="#ffffff" />
-        </Box>
-      </RigidBody>
-      <RigidBody
-        type="fixed"
-        colliders="cuboid"
-        restitution={1.2}
-        friction={0.1}
-      >
-        <Box args={[20, 0.5, 0.5]} position={[0, 0.25, -6]}>
-          <meshLambertMaterial color="#ffffff" />
-        </Box>
-      </RigidBody>
-
+      {/* Random obstacles */}
       {obstacles.map((obstacle, index) => (
         <RigidBody
           key={`${resetKey}-${index}`}
@@ -114,11 +164,6 @@ export function CourseLayout({ resetKey }: CourseLayoutProps) {
           </Box>
         </RigidBody>
       ))}
-
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[8, -1, 0]}>
-        <circleGeometry args={[0.75, 32]} />
-        <meshBasicMaterial color="#000000" side={THREE.DoubleSide} />
-      </mesh>
     </>
   );
 }

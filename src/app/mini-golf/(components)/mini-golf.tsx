@@ -58,6 +58,12 @@ export default function MiniGolfGame() {
     );
     setBallPosition(newPosition);
 
+    // Check if ball has fallen into the hole (y position below -0.2)
+    if (physicsPosition.y < -0.2 && !gameState.gameComplete) {
+      handleBallInHole();
+      return;
+    }
+
     // Apply dynamic damping for slow-moving ball
     const velocity = ballRef.current.linvel();
     const speed = Math.sqrt(velocity.x * velocity.x + velocity.z * velocity.z);
@@ -81,8 +87,8 @@ export default function MiniGolfGame() {
       ballRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
     }
 
-    // Update controls target to follow ball
-    if (controlsRef.current) {
+    // Update controls target to follow ball (only if ball hasn't fallen into hole)
+    if (controlsRef.current && physicsPosition.y > -0.2) {
       controlsRef.current.target.copy(newPosition);
 
       // Maintain constant distance from ball
@@ -246,7 +252,7 @@ export default function MiniGolfGame() {
           target={ballPosition}
         />
         <CourseLayout resetKey={resetKey} />
-        <Course onBallInHole={handleBallInHole} />
+        <Course />
         <Ball
           ref={ballRef}
           onPointerDown={handlePointerDown}
