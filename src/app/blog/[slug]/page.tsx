@@ -5,7 +5,7 @@ import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { ArrowLeft } from "lucide-react";
 
-import { PostBody } from "./(components)/post-body";
+import { PostBody } from "./_components/post-body";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
 

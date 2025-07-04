@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
-import MiniGolfGame from "./(components)/mini-golf";
+import MiniGolfGame from "./_components/mini-golf";
 
 function LoadingScreen() {
   return (
