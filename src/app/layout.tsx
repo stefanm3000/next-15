@@ -49,13 +49,13 @@ export default function RootLayout({
                 className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
                 href="mailto:stefanmilenkovic3000@gmail.com"
               >
-                stefanmilenkovic3000@gmail.com
+                email
               </a>
               <a
                 className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
                 href="https://github.com/stefanm3000"
               >
-                github.com/stefanm3000/next-15
+                code
               </a>
             </div>
           </footer>
