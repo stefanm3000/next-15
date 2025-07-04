@@ -2,9 +2,9 @@
 
 import { useRef, useState, useEffect } from "react";
 import { useFrame, useThree, ThreeEvent } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { Physics, RapierRigidBody } from "@react-three/rapier";
 import * as THREE from "three";
+import { OrbitControls } from "@react-three/drei";
 
 import { GameState } from "./types";
 import { backgroundMaterial } from "./materials";
@@ -26,12 +26,6 @@ export default function MiniGolfGame() {
   const { camera } = useThree();
   const [resetKey, setResetKey] = useState(0);
 
-  // Set initial camera position
-  useEffect(() => {
-    camera.position.copy(INITIAL_CAMERA_POSITION);
-    camera.lookAt(INITIAL_CAMERA_TARGET);
-  }, [camera]);
-
   const [ballPosition, setBallPosition] = useState<THREE.Vector3>(
     INITIAL_BALL_POSITION.clone(),
   );
@@ -47,6 +41,11 @@ export default function MiniGolfGame() {
     new THREE.Vector3(1, 0, 0),
   );
 
+  useEffect(() => {
+    camera.position.copy(INITIAL_CAMERA_POSITION);
+    camera.lookAt(INITIAL_CAMERA_TARGET);
+  }, [camera]);
+
   useFrame(() => {
     if (!ballRef.current) return;
 
@@ -59,9 +58,48 @@ export default function MiniGolfGame() {
     );
     setBallPosition(newPosition);
 
+    // Apply dynamic damping for slow-moving ball
+    const velocity = ballRef.current.linvel();
+    const speed = Math.sqrt(velocity.x * velocity.x + velocity.z * velocity.z);
+
+    // If ball is moving slowly (below 0.5 units/sec), apply additional damping to stop it faster
+    if (speed > 0.05 && speed < 0.5) {
+      const dampingFactor = 0.85;
+      ballRef.current.setLinvel(
+        {
+          x: velocity.x * dampingFactor,
+          y: velocity.y,
+          z: velocity.z * dampingFactor,
+        },
+        true,
+      );
+    }
+
+    // Stop the ball completely if it's moving very slowly
+    if (speed < 0.05 && speed > 0.001) {
+      ballRef.current.setLinvel({ x: 0, y: velocity.y, z: 0 }, true);
+      ballRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    }
+
     // Update controls target to follow ball
     if (controlsRef.current) {
       controlsRef.current.target.copy(newPosition);
+
+      // Maintain constant distance from ball
+      const currentCameraPosition = camera.position.clone();
+      const directionToBall = newPosition
+        .clone()
+        .sub(currentCameraPosition)
+        .normalize();
+      const newCameraPosition = newPosition
+        .clone()
+        .sub(
+          directionToBall.multiplyScalar(
+            INITIAL_CAMERA_POSITION.distanceTo(INITIAL_BALL_POSITION),
+          ),
+        );
+
+      camera.position.copy(newCameraPosition);
       controlsRef.current.update();
     }
   });
@@ -192,7 +230,6 @@ export default function MiniGolfGame() {
           <sphereGeometry args={[100, 32, 32]} />
           <primitive object={backgroundMaterial} />
         </mesh>
-
         <OrbitControls
           ref={controlsRef}
           enablePan={false}
@@ -200,21 +237,22 @@ export default function MiniGolfGame() {
           enableRotate={true}
           minPolarAngle={Math.PI / 6}
           maxPolarAngle={Math.PI / 2.2}
-          minDistance={2}
-          maxDistance={15}
+          minDistance={INITIAL_CAMERA_POSITION.distanceTo(
+            INITIAL_BALL_POSITION,
+          )}
+          maxDistance={INITIAL_CAMERA_POSITION.distanceTo(
+            INITIAL_BALL_POSITION,
+          )}
           target={ballPosition}
         />
-
         <CourseLayout resetKey={resetKey} />
         <Course onBallInHole={handleBallInHole} />
-
         <Ball
           ref={ballRef}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
         />
-
         {isDragging && (
           <AimingLine
             start={new THREE.Vector3(ballPosition.x, 0.2, ballPosition.z)}
@@ -223,7 +261,6 @@ export default function MiniGolfGame() {
             power={Math.min(dragDistance / 5, 1)}
           />
         )}
-
         <ScoreUI
           strokes={gameState.strokes}
           gameComplete={gameState.gameComplete}

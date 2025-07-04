@@ -6,6 +6,7 @@ interface CourseProps {
 }
 
 export function Course({ onBallInHole }: CourseProps) {
+  "use memo";
   return (
     <group position={[8, 0, 0]}>
       {/* Visual hole rim */}

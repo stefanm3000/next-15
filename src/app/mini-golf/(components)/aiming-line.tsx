@@ -13,6 +13,8 @@ export function AimingLine({
   opacity = 1,
   power = 0.5,
 }: AimingLineProps) {
+  "use memo";
+
   const baseLength = 1.5;
   const length = baseLength * (0.3 + power * 1.7);
   const dotCount = Math.max(3, Math.min(8, Math.ceil(power * 8))); // More dots for longer lines

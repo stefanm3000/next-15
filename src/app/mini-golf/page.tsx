@@ -20,10 +20,10 @@ export default function MiniGolfPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="w-full h-[calc(100dvh-18rem)] rounded relative">
+    <div className="w-full h-[calc(100dvh-20rem)] rounded relative">
       {isLoading && <LoadingScreen />}
       <div
-        className={`w-full h-full transition-opacity duration-1000 ${isLoading ? "opacity-0" : "opacity-100"}`}
+        className={`w-full h-full transition-opacity rounded-lg overflow-hidden duration-1000 ${isLoading ? "opacity-0" : "opacity-100"}`}
       >
         <Canvas
           camera={{ position: [0, 8, 12], fov: 75 }}
