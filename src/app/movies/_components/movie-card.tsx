@@ -44,7 +44,7 @@ export function MovieCard({ movie }: MovieCardProps) {
           <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
             <div className="text-gray-500 text-center p-4">
               <ImageOff size={48} />
-              <p className="text-sm font-mono">no image</p>
+              <p className="text-sm ">no image</p>
             </div>
           </div>
         )}
@@ -53,7 +53,7 @@ export function MovieCard({ movie }: MovieCardProps) {
 
       <div className="p-4">
         <ViewTransition name={`movie-title-${movie.imdbID}`}>
-          <p className="font-semibold text-white text-sm line-clamp-2 mb-2 group-hover:text-gray-300 transition-colors font-mono">
+          <p className="font-semibold text-white text-sm line-clamp-2 mb-2 group-hover:text-gray-300 transition-colors ">
             {movie.Title}
           </p>
         </ViewTransition>
@@ -71,7 +71,7 @@ export function MovieCard({ movie }: MovieCardProps) {
           </div>
         )}
 
-        <div className="flex items-center justify-between text-xs text-gray-400 font-mono">
+        <div className="flex items-center justify-between text-xs text-gray-400 ">
           <span>{movie.Year}</span>
           <span className="capitalize bg-white/10 text-white px-2 py-1 rounded">
             {movie.Type}

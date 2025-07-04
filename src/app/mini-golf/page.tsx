@@ -7,7 +7,7 @@ import MiniGolfGame from "./_components/mini-golf";
 function LoadingScreen() {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="bg-black/80 text-white font-mono rounded-lg px-4 py-2">
+      <div className="bg-black/80 text-white  rounded-lg px-4 py-2">
         loading...
       </div>
     </div>
@@ -24,7 +24,7 @@ export default function MiniGolfPage() {
     <div className="w-full h-[calc(100dvh-20rem)] rounded relative">
       <button
         onClick={() => setResetKey(resetKey + 1)}
-        className="absolute top-2 right-2 z-20 p-2 bg-white/10 backdrop-blur-sm rounded-lg text-white font-mono text-sm cursor-pointer"
+        className="absolute top-2 right-2 z-20 p-2 bg-white/10 backdrop-blur-sm rounded-lg text-white  text-sm cursor-pointer"
       >
         reset
       </button>

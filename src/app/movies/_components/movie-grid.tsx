@@ -12,12 +12,8 @@ export function MovieGrid({ movies }: MovieGridProps) {
   if (!movies || movies.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="text-gray-400 text-lg mb-4 font-mono">
-          no movies found
-        </div>
-        <p className="text-gray-500 font-mono">
-          try searching for something else
-        </p>
+        <div className="text-gray-400 text-lg mb-4 ">no movies found</div>
+        <p className="text-gray-500 ">try searching for something else</p>
       </div>
     );
   }

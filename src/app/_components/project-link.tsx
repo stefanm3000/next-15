@@ -27,11 +27,9 @@ export const ProjectLink = ({
         </div>
         <div>
           <ViewTransition name={transitionName}>
-            <h2 className="text-xl font-semibold text-white mb-2 font-mono">
-              {title}
-            </h2>
+            <h2 className="text-xl font-semibold text-white mb-2 ">{title}</h2>
           </ViewTransition>
-          <p className="text-gray-400 text-sm font-mono">{description}</p>
+          <p className="text-gray-400 text-sm ">{description}</p>
         </div>
       </div>
     </Link>

@@ -29,7 +29,7 @@ export const MovieList = ({
   return (
     <>
       <div className={`mb-6 text-center ${query ? "block" : "hidden"}`}>
-        <p className="text-gray-400 font-mono">
+        <p className="text-gray-400 ">
           found <span className="text-white font-semibold">{totalResults}</span>{" "}
           results for &ldquo;{query}&rdquo;
         </p>

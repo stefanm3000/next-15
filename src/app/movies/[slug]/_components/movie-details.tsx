@@ -44,7 +44,7 @@ export function Details({
                       <div className="text-gray-500 text-center p-4">
                         <ImageOff size={48} />
 
-                        <p className="text-sm font-mono">no image available</p>
+                        <p className="text-sm ">no image available</p>
                       </div>
                     </div>
                   )}
@@ -56,12 +56,12 @@ export function Details({
               <div className="space-y-6">
                 <div>
                   <ViewTransition name={`movie-title-${movie.imdbID}`}>
-                    <h1 className="text-4xl font-bold text-white mb-2 font-mono">
+                    <h1 className="text-4xl font-bold text-white mb-2 ">
                       {movie.Title}
                     </h1>
                   </ViewTransition>
 
-                  <div className="flex items-center space-x-4 text-gray-400 font-mono">
+                  <div className="flex items-center space-x-4 text-gray-400 ">
                     <span>{movie.Year}</span>
                     <span>•</span>
                     <span>{movie.Runtime}</span>
@@ -79,14 +79,12 @@ export function Details({
                       <div>
                         <div className="text-white font-bold text-xl">
                           {movie.imdbRating}
-                          <div className="text-gray-400 text-sm font-mono">
-                            /10
-                          </div>
+                          <div className="text-gray-400 text-sm ">/10</div>
                         </div>
                       </div>
                     </div>
                     {movie.imdbVotes && (
-                      <div className="text-gray-400 text-sm font-mono">
+                      <div className="text-gray-400 text-sm ">
                         {movie.imdbVotes} votes
                       </div>
                     )}
@@ -95,10 +93,10 @@ export function Details({
 
                 {movie.Plot && (
                   <div>
-                    <h2 className="text-xl font-semibold text-white mb-3 font-mono">
+                    <h2 className="text-xl font-semibold text-white mb-3 ">
                       plot
                     </h2>
-                    <p className="text-gray-300 leading-relaxed font-mono">
+                    <p className="text-gray-300 leading-relaxed ">
                       {movie.Plot}
                     </p>
                   </div>
@@ -107,66 +105,62 @@ export function Details({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {movie.Genre && (
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      <h3 className="text-lg font-semibold text-white mb-2 ">
                         genre
                       </h3>
-                      <p className="text-gray-300 font-mono">{movie.Genre}</p>
+                      <p className="text-gray-300 ">{movie.Genre}</p>
                     </div>
                   )}
 
                   {movie.Director && (
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      <h3 className="text-lg font-semibold text-white mb-2 ">
                         director
                       </h3>
-                      <p className="text-gray-300 font-mono">
-                        {movie.Director}
-                      </p>
+                      <p className="text-gray-300 ">{movie.Director}</p>
                     </div>
                   )}
 
                   {movie.Writer && (
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      <h3 className="text-lg font-semibold text-white mb-2 ">
                         writer
                       </h3>
-                      <p className="text-gray-300 font-mono">{movie.Writer}</p>
+                      <p className="text-gray-300 ">{movie.Writer}</p>
                     </div>
                   )}
 
                   {movie.Actors && (
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      <h3 className="text-lg font-semibold text-white mb-2 ">
                         cast
                       </h3>
-                      <p className="text-gray-300 font-mono">{movie.Actors}</p>
+                      <p className="text-gray-300 ">{movie.Actors}</p>
                     </div>
                   )}
 
                   {movie.Released && (
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      <h3 className="text-lg font-semibold text-white mb-2 ">
                         released
                       </h3>
-                      <p className="text-gray-300 font-mono">
-                        {movie.Released}
-                      </p>
+                      <p className="text-gray-300 ">{movie.Released}</p>
                     </div>
                   )}
 
                   {movie.Rated && (
                     <div>
-                      <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                      <h3 className="text-lg font-semibold text-white mb-2 ">
                         rated
                       </h3>
-                      <p className="text-gray-300 font-mono">{movie.Rated}</p>
+                      <p className="text-gray-300 ">{movie.Rated}</p>
                     </div>
                   )}
                 </div>
 
                 {movie.Ratings && movie.Ratings.length > 0 && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-3 font-mono">
+                    <h3 className="text-lg font-semibold text-white mb-3 ">
                       ratings
                     </h3>
                     <div className="space-y-2">
@@ -175,10 +169,10 @@ export function Details({
                           key={index}
                           className="flex justify-between items-center bg-white/5 backdrop-blur-md rounded-lg p-3"
                         >
-                          <span className="text-gray-300 font-mono">
+                          <span className="text-gray-300 ">
                             {rating.Source}
                           </span>
-                          <span className="text-white font-semibold font-mono">
+                          <span className="text-white font-semibold ">
                             {rating.Value}
                           </span>
                         </div>
@@ -189,34 +183,32 @@ export function Details({
 
                 {movie.BoxOffice && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                    <h3 className="text-lg font-semibold text-white mb-2 ">
                       box office
                     </h3>
-                    <p className="text-gray-300 font-mono">{movie.BoxOffice}</p>
+                    <p className="text-gray-300 ">{movie.BoxOffice}</p>
                   </div>
                 )}
 
                 {movie.Production && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                    <h3 className="text-lg font-semibold text-white mb-2 ">
                       production
                     </h3>
-                    <p className="text-gray-300 font-mono">
-                      {movie.Production}
-                    </p>
+                    <p className="text-gray-300 ">{movie.Production}</p>
                   </div>
                 )}
 
                 {movie.Website && movie.Website !== "N/A" && (
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2 font-mono">
+                    <h3 className="text-lg font-semibold text-white mb-2 ">
                       website
                     </h3>
                     <a
                       href={movie.Website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-400 hover:text-blue-300 transition-colors font-mono"
+                      className="text-blue-400 hover:text-blue-300 transition-colors "
                     >
                       {movie.Website}
                     </a>

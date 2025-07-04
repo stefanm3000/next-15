@@ -38,7 +38,7 @@ export const BlogPostCard = ({
           <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
             <div className="text-gray-500 text-center p-4 flex flex-col items-center gap-2">
               <ImageOffIcon size={48} />
-              <p className="text-sm font-mono">no image</p>
+              <p className="text-sm ">no image</p>
             </div>
           </div>
         )}
@@ -47,18 +47,16 @@ export const BlogPostCard = ({
 
       <div className="p-4">
         <ViewTransition name={`blog-post-${slug}`}>
-          <h2 className="text-lg font-semibold text-white mb-2 group-hover:text-gray-300 transition-colors font-mono line-clamp-2">
+          <h2 className="text-lg font-semibold text-white mb-2 group-hover:text-gray-300 transition-colors  line-clamp-2">
             {title}
           </h2>
         </ViewTransition>
 
         {excerpt && (
-          <p className="text-gray-400 text-sm mb-3 line-clamp-3 font-mono">
-            {excerpt}
-          </p>
+          <p className="text-gray-400 text-sm mb-3 line-clamp-3 ">{excerpt}</p>
         )}
 
-        <div className="flex items-center justify-between text-xs text-gray-500 font-mono">
+        <div className="flex items-center justify-between text-xs text-gray-500 ">
           <time dateTime={publishedAt}>
             {new Date(publishedAt).toLocaleDateString("en-US", {
               year: "numeric",

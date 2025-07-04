@@ -11,7 +11,7 @@ export default function MoviesLayout({
       <div className="mb-8">
         <ViewTransition name="movies">
           <Link
-            className="text-2xl font-bold mb-8 text-white font-mono hover:text-amber-300 transition-colors duration-300"
+            className="text-2xl font-bold mb-8 text-white  hover:text-amber-300 transition-colors duration-300"
             href="/movies"
           >
             snappy imdb

@@ -8,7 +8,7 @@ export default function BlogLayout({
   return (
     <div>
       <ViewTransition name="blog">
-        <h1 className="text-2xl font-bold mb-8 text-white font-mono">blog</h1>
+        <h1 className="text-2xl font-bold mb-8 text-white ">blog</h1>
       </ViewTransition>
       {children}
     </div>

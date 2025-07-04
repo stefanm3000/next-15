@@ -1,16 +1,10 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -26,15 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistMono.className} antialiased`}>
         <div className="min-h-[100dvh] bg-black flex flex-col">
           <div className="container mx-auto px-4 py-8">
             <header className="flex justify-between items-start py-2">
               <Link
                 href="/"
-                className="text-2xl md:text-4xl mb-2 font-mono font-bold hover:text-amber-300 transition-colors duration-300"
+                className="text-2xl md:text-4xl mb-2 font-bold hover:text-amber-300 transition-colors duration-300"
               >
                 home
               </Link>
@@ -43,21 +35,19 @@ export default function RootLayout({
             <main>{children}</main>
           </div>
 
-          <footer className="px-4 text-center text-gray-400 font-mono py-4 mt-auto gap-4 flex justify-center items-center ">
-            <div className="flex flex-col md:flex-row gap-4 p-2">
-              <a
-                className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
-                href="mailto:stefanmilenkovic3000@gmail.com"
-              >
-                email
-              </a>
-              <a
-                className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
-                href="https://github.com/stefanm3000"
-              >
-                code
-              </a>
-            </div>
+          <footer className="px-4 text-center text-gray-400  py-4 mt-auto flex justify-center items-center gap-2">
+            <a
+              className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
+              href="mailto:stefanmilenkovic3000@gmail.com"
+            >
+              email
+            </a>
+            <a
+              className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
+              href="https://github.com/stefanm3000"
+            >
+              code
+            </a>
           </footer>
         </div>
       </body>

@@ -11,7 +11,7 @@ interface PostBodyProps {
 export const PostBody = ({ post, urlFor }: PostBodyProps) => {
   return (
     <div className="prose prose-invert prose-lg max-w-none">
-      <div className="text-gray-300 leading-relaxed space-y-6 font-mono">
+      <div className="text-gray-300 leading-relaxed space-y-6 ">
         <PortableText
           value={post.body}
           components={{
@@ -73,7 +73,7 @@ export const PostBody = ({ post, urlFor }: PostBodyProps) => {
                 <em className="italic text-gray-200">{children}</em>
               ),
               code: ({ children }) => (
-                <code className="bg-gray-800 text-blue-300 px-2 py-1 rounded text-sm font-mono">
+                <code className="bg-gray-800 text-blue-300 px-2 py-1 rounded text-sm ">
                   {children}
                 </code>
               ),
@@ -110,9 +110,7 @@ export const PostBody = ({ post, urlFor }: PostBodyProps) => {
               },
               code: ({ value }) => (
                 <pre className="bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-x-auto my-6">
-                  <code className="text-gray-300 text-sm font-mono">
-                    {value.code}
-                  </code>
+                  <code className="text-gray-300 text-sm ">{value.code}</code>
                 </pre>
               ),
             },

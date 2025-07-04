@@ -41,7 +41,7 @@ export function SortBy() {
         <select
           value={currentSort}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="w-full appearance-none rounded-lg bg-transparent py-3.5 px-3 text-sm font-mono text-white focus:border-white/40 focus:outline-none opacity-0 absolute inset-0 cursor-pointer"
+          className="w-full appearance-none rounded-lg bg-transparent py-3.5 px-3 text-sm  text-white focus:border-white/40 focus:outline-none opacity-0 absolute inset-0 cursor-pointer"
         >
           {sortOptions.map((option) => (
             <option
@@ -62,7 +62,7 @@ export function SortBy() {
         <select
           value={currentSort}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="w-full appearance-none rounded-lg bg-transparent py-3.5 pl-4 pr-10 text-sm font-mono text-white focus:border-white/40 focus:outline-none"
+          className="w-full appearance-none rounded-lg bg-transparent py-3.5 pl-4 pr-10 text-sm  text-white focus:border-white/40 focus:outline-none"
         >
           {sortOptions.map((option) => (
             <option

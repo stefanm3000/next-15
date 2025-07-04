@@ -29,7 +29,7 @@ export function Pagination({ totalPages }: PaginationProps) {
       {showPrev && (
         <Link
           href={createPageUrl(currentPage - 1)}
-          className="px-3 py-2 bg-black-50/50 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
+          className="px-3 py-2 bg-black-50/50 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors "
           prefetch
         >
           prev
@@ -39,11 +39,11 @@ export function Pagination({ totalPages }: PaginationProps) {
       {visiblePages.map((page, index) => (
         <div key={index}>
           {page === "..." ? (
-            <span className="px-3 py-2 text-gray-500 font-mono">...</span>
+            <span className="px-3 py-2 text-gray-500 ">...</span>
           ) : (
             <Link
               href={createPageUrl(page as number)}
-              className={`px-3 py-2 rounded-lg transition-colors font-mono ${
+              className={`px-3 py-2 rounded-lg transition-colors  ${
                 currentPage === page
                   ? "bg-white text-black font-semibold"
                   : "bg-white/5 backdrop-blur-md border border-white/20 text-white hover:bg-white/10"
@@ -59,7 +59,7 @@ export function Pagination({ totalPages }: PaginationProps) {
       {showNext && (
         <Link
           href={createPageUrl(currentPage + 1)}
-          className="px-3 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors font-mono"
+          className="px-3 py-2 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-white hover:bg-white/10 transition-colors "
           prefetch
         >
           next

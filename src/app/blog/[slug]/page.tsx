@@ -71,7 +71,7 @@ export default async function PostPage({
       <div className="container mx-auto max-w-4xl px-4 py-8">
         <Link
           href="/blog"
-          className="inline-flex items-center space-x-2 text-gray-400 hover:text-white transition-colors mb-8 font-mono text-sm"
+          className="inline-flex items-center space-x-2 text-gray-400 hover:text-white transition-colors mb-8  text-sm"
         >
           <ArrowLeft size={16} />
           <span>back to blog</span>
@@ -95,12 +95,12 @@ export default async function PostPage({
 
           <header className="space-y-4">
             <ViewTransition name={`blog-post-${params.slug}`}>
-              <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight font-mono">
+              <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight ">
                 {post.title}
               </h1>
             </ViewTransition>
 
-            <div className="flex items-center space-x-4 text-gray-400 font-mono text-sm">
+            <div className="flex items-center space-x-4 text-gray-400  text-sm">
               <time dateTime={post.publishedAt}>
                 {new Date(post.publishedAt).toLocaleDateString("en-US", {
                   year: "numeric",

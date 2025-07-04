@@ -40,16 +40,14 @@ export default async function BlogPostPage() {
   if (noPosts) {
     return (
       <div className="text-center py-12">
-        <div className="text-gray-400 text-lg mb-4 font-mono">
-          no posts found
-        </div>
+        <div className="text-gray-400 text-lg mb-4 ">no posts found</div>
       </div>
     );
   }
 
   return (
     <div>
-      <div className="text-gray-400 text-sm mb-6 font-mono flex flex-col gap-2">
+      <div className="text-gray-400 text-sm mb-6  flex flex-col gap-2">
         <p>
           these blog posts are rendered using next.js incremental static regen
           w/{" "}
