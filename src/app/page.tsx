@@ -1,6 +1,7 @@
 import { Film, BookOpen, Flag } from "lucide-react";
-import { ProjectLink } from "@/app/(components)/project-link";
+import { ProjectLink } from "@/app/_components/project-link";
 import { Metadata } from "next";
+import { Routes } from "@/utils/routes";
 
 export const metadata: Metadata = {
   title: "next 15",
@@ -15,7 +16,7 @@ export default function Home() {
         description="explore movie database"
         icon={<Film className="w-6 h-6 text-orange-400" />}
         transitionName="movies"
-        href="/movies"
+        href={Routes.MOVIES}
       />
 
       <ProjectLink
@@ -23,7 +24,7 @@ export default function Home() {
         description="read latest articles"
         icon={<BookOpen className="w-6 h-6 text-green-400" />}
         transitionName="blog"
-        href="/blog"
+        href={Routes.BLOG}
       />
 
       <ProjectLink
@@ -31,7 +32,7 @@ export default function Home() {
         description="play mini golf"
         icon={<Flag className="w-6 h-6 text-blue-400" />}
         transitionName="mini-golf"
-        href="/mini-golf"
+        href={Routes.GOLF}
       />
     </section>
   );

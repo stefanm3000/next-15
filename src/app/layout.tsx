@@ -2,7 +2,6 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { CodeIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
 
 const geistSans = Geist({
@@ -45,12 +44,18 @@ export default function RootLayout({
           </div>
 
           <footer className="px-4 text-center text-gray-400 font-mono py-4 mt-auto gap-4 flex justify-center items-center ">
-            <div className="flex gap-4 border border-white/20 rounded-lg p-2 ml-auto">
-              <a href="mailto:stefanmilenkovic3000@gmail.com">
-                <MailIcon className="hover:text-amber-300 transition-colors duration-300 size-6" />
+            <div className="flex flex-col md:flex-row gap-4 p-2">
+              <a
+                className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
+                href="mailto:stefanmilenkovic3000@gmail.com"
+              >
+                email
               </a>
-              <a href="https://github.com/stefanm3000">
-                <CodeIcon className="hover:text-amber-300 transition-colors duration-300 size-6" />
+              <a
+                className="border border-white/20 rounded-lg p-2 hover:bg-white/10 transition-colors duration-300"
+                href="https://github.com/stefanm3000"
+              >
+                code
               </a>
             </div>
           </footer>

@@ -14,6 +14,7 @@ export const Ball = ({
   onPointerUp,
   ref,
 }: BallProps) => {
+  "use memo";
   return (
     <RigidBody
       ref={ref}

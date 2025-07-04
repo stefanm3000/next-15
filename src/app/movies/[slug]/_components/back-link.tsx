@@ -1,12 +1,13 @@
 "use client";
 
+import { Routes } from "@/utils/routes";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 export const BackLink = () => {
   const searchParams = useSearchParams();
-  const backHref = searchParams.get("back") || "/movies";
+  const backHref = searchParams.get("back") || Routes.MOVIES;
 
   return (
     <Link
