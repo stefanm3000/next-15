@@ -1,6 +1,6 @@
 "use server";
 
-import { MovieDetail } from "@/utils/movies";
+import { MovieDetail } from "@/src/utils/movies";
 
 export const getMovies = async (
   query: string,

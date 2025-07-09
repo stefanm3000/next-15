@@ -1,11 +1,11 @@
-import { Film, BookOpen, Flag } from "lucide-react";
-import { ProjectLink } from "@/app/_components/project-link";
+import { Film, BookOpen, Flag, MessageCircle } from "lucide-react";
+import { ProjectLink } from "./_components/project-link";
 import { Metadata } from "next";
-import { Routes } from "@/utils/routes";
+import { Routes } from "../utils/routes";
 
 export const metadata: Metadata = {
-  title: "next 15",
-  description: "- the next 15+ playground",
+  title: "next 15 | playground",
+  description: "the next 15+ playground",
 };
 
 export default function Home() {
@@ -33,6 +33,14 @@ export default function Home() {
         icon={<Flag className="w-6 h-6 text-blue-400" />}
         transitionName="mini-golf"
         href={Routes.GOLF}
+      />
+
+      <ProjectLink
+        title="comments"
+        description="leave an anon comment"
+        icon={<MessageCircle className="w-6 h-6 text-purple-400" />}
+        transitionName="comments"
+        href={Routes.COMMENTS}
       />
     </section>
   );

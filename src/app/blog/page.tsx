@@ -2,8 +2,8 @@ import { type SanityDocument } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-import { client } from "@/sanity/client";
-import { BlogPostCard } from "@/app/blog/_components/blog-post-card";
+import { client } from "@/src/sanity/client";
+import { BlogPostCard } from "./_components/blog-post-card";
 import { Metadata } from "next";
 
 const POSTS_QUERY = `*[

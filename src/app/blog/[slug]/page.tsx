@@ -1,5 +1,5 @@
 import { type SanityDocument } from "next-sanity";
-import { client } from "@/sanity/client";
+import { client } from "@/src/sanity/client";
 import Link from "next/link";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";

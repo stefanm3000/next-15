@@ -1,6 +1,6 @@
 "use client";
 
-import { Routes } from "@/utils/routes";
+import { Routes } from "@/src/utils/routes";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
