@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { type MovieDetail } from "@/utils/movies";
+import { type MovieDetail } from "@/src/utils/movies";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { ImageOff } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { Routes } from "@/utils/routes";
+import { Routes } from "@/src/utils/routes";
 
 interface MovieCardProps {
   movie: MovieDetail;

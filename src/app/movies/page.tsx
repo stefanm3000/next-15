@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import { MovieList } from "@/app/movies/_components/movie-list";
-import { MovieGridSkeleton } from "@/app/movies/_components/movie-skeletons";
-import { SearchForm } from "@/app/movies/_components/search-form";
-import { SortBy } from "@/app/movies/_components/sort-by";
+import { MovieList } from "./_components/movie-list";
+import { MovieGridSkeleton } from "./_components/movie-skeletons";
+import { SearchForm } from "./_components/search-form";
+import { SortBy } from "./_components/sort-by";
 import { getMovies } from "./actions";
 import { Metadata } from "next";
 

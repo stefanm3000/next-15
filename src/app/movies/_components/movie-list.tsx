@@ -1,6 +1,6 @@
 "use client";
 
-import { MovieDetail, sortMovies } from "@/utils/movies";
+import { MovieDetail, sortMovies } from "@/src/utils/movies";
 import { MovieGrid } from "./movie-grid";
 import { Pagination } from "./pagination";
 import { use } from "react";
