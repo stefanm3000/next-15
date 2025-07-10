@@ -3,4 +3,8 @@ import { v } from "convex/values";
 
 export default defineSchema({
   comments: defineTable({ text: v.string() }),
+  messages: defineTable({
+    user: v.string(),
+    body: v.string(),
+  }),
 });

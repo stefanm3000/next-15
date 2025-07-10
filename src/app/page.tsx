@@ -42,6 +42,14 @@ export default function Home() {
         transitionName="comments"
         href={Routes.COMMENTS}
       />
+
+      <ProjectLink
+        title="chat"
+        description="realtime chat"
+        icon={<MessageCircle className="w-6 h-6 text-cyan-400" />}
+        transitionName="chat"
+        href={Routes.CHAT}
+      />
     </section>
   );
 }
