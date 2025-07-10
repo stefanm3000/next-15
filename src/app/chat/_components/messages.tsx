@@ -14,19 +14,17 @@ export function Messages() {
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("chatUserId");
-    if (storedUserId) {
-      setCurrentUserId(storedUserId);
+    if (storedUserId !== currentUserId) {
+      setCurrentUserId(storedUserId || "");
     }
-  }, []);
 
-  useEffect(() => {
     if (messages) {
       window.scrollTo({
         top: document.body.scrollHeight,
         behavior: "smooth",
       });
     }
-  }, [messages]);
+  }, [messages, currentUserId]);
 
   return (
     <ViewTransition>
