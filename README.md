@@ -8,15 +8,14 @@ live over at [https://next-15-weld.vercel.app/](https://next-15-weld.vercel.app/
 
 this project is a living lab for next.js latest and react canary releases. it includes:
 
-- app router w turbopack
-- rsc + streaming, actions
-- serverside rendering, incremental static regen
-- sanity integration for blog
-- search params manipulation on the movies page
+- realtime chat w [convex](https://convex.dev)
+- app router, rsc + streaming, actions
+- sanity integration for blog, isr
 - experimental view transitions
 - a mini golf ⛳️ game using three.js + fiber + drei + rapier
 - react compiler for mini golf components
 - comments page w [convex](https://convex.dev)
+
 
 ## getting Started
 
