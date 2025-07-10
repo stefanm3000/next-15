@@ -3,11 +3,31 @@ import { api } from "@/convex/_generated/api";
 import { CommentInput } from "./_components/comment-input";
 import { ConvexClientProvider } from "./_components/convex-client-provider";
 import { CommentsGrid } from "./_components/comments-grid";
+import { CursorPagination } from "./_components/cursor-pagination";
+import { CommentsPerPage } from "./_components/comments-per-page";
+import { Routes } from "@/src/utils/routes";
 
-const getComments = async () => await fetchQuery(api.comments.get);
+const getComments = async ({
+  cursor,
+  perPage = "5",
+}: {
+  cursor?: string | null;
+  perPage?: string;
+} = {}) =>
+  await fetchQuery(api.comments.get, {
+    paginationOptions: {
+      numItems: parseInt(perPage),
+      cursor: cursor || null,
+    },
+  });
 
-export default async function Comments() {
-  const commentsPromise = getComments();
+export default async function Comments({
+  searchParams,
+}: {
+  searchParams: Promise<{ cursor?: string; perPage?: string }>;
+}) {
+  const { cursor, perPage } = await searchParams;
+  const commentsPromise = getComments({ cursor, perPage });
 
   return (
     <ConvexClientProvider>
@@ -24,7 +44,18 @@ export default async function Comments() {
           </a>
           . leave me a comment, but don&apos;t be mean
         </p>
+
+        <div className="flex justify-end mb-4">
+          <CommentsPerPage />
+        </div>
+
         <CommentsGrid commentsPromise={commentsPromise} />
+
+        <CursorPagination
+          commentsPromise={commentsPromise}
+          baseUrl={Routes.COMMENTS}
+        />
+
         <CommentInput />
       </div>
     </ConvexClientProvider>

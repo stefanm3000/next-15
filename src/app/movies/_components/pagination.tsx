@@ -1,20 +1,25 @@
 "use client";
 
+import { Routes } from "@/src/utils/routes";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 interface PaginationProps {
   totalPages: number;
+  baseUrl?: Routes;
 }
 
-export function Pagination({ totalPages }: PaginationProps) {
+export function Pagination({
+  totalPages,
+  baseUrl = Routes.MOVIES,
+}: PaginationProps) {
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1");
 
   const createPageUrl = (page: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());
-    return `/movies?${params.toString()}`;
+    return `${baseUrl}?${params.toString()}`;
   };
 
   const visiblePages = getVisiblePages({ currentPage, totalPages });

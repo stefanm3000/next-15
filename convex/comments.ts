@@ -1,10 +1,17 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { paginationOptsValidator } from "convex/server";
 
 export const get = query({
-  args: {},
-  handler: async (ctx) => {
-    return await ctx.db.query("comments").collect();
+  args: {
+    paginationOptions: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db
+      .query("comments")
+      .order("desc")
+      .paginate(args.paginationOptions);
+    return result;
   },
 });
 
