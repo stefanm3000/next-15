@@ -4,11 +4,13 @@ import { v } from "convex/values";
 export const sendMessage = mutation({
   args: {
     user: v.string(),
+    userId: v.string(),
     body: v.string(),
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("messages", {
       user: args.user,
+      userId: args.userId,
       body: args.body,
     });
   },

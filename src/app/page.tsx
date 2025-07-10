@@ -1,4 +1,4 @@
-import { Film, BookOpen, Flag, MessageCircle } from "lucide-react";
+import { Film, BookOpen, Flag, MessageCircle, Radio } from "lucide-react";
 import { ProjectLink } from "./_components/project-link";
 import { Metadata } from "next";
 import { Routes } from "../utils/routes";
@@ -46,7 +46,7 @@ export default function Home() {
       <ProjectLink
         title="chat"
         description="realtime chat"
-        icon={<MessageCircle className="w-6 h-6 text-cyan-400" />}
+        icon={<Radio className="w-6 h-6 text-white animate-pulse" />}
         transitionName="chat"
         href={Routes.CHAT}
       />
