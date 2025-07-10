@@ -4,4 +4,5 @@ export enum Routes {
   HOME = "/",
   BLOG = "/blog",
   COMMENTS = "/comments",
+  CHAT = "/chat",
 }
