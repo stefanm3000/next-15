@@ -58,7 +58,7 @@ export default async function BlogPostPage() {
         </p>
         <p>
           mostly written by dan abramov, check out{" "}
-          <a href="https:overreacted.io" className="underline">
+          <a href="https://overreacted.io" className="underline">
             overreacted.io
           </a>{" "}
           for more cool stuff
