@@ -14,8 +14,9 @@ this project is a living lab for next.js latest and react canary releases. it in
 - sanity integration for blog
 - search params manipulation on the movies page
 - experimental view transitions
-- a mini golf ⛳️ game using react-three/ fiber + drei + rapier
+- a mini golf ⛳️ game using three.js + fiber + drei + rapier
 - react compiler for mini golf components
+- comments page w [convex](https://convex.dev)
 
 ## getting Started
 
