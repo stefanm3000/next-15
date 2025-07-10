@@ -3,6 +3,12 @@
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 import MiniGolfGame from "./_components/mini-golf";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "next 15 | mini golf",
+  description: "mini golf game made with react three fiber and rapier",
+};
 
 function LoadingScreen() {
   return (

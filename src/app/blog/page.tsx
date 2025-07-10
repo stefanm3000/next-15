@@ -6,6 +6,11 @@ import { client } from "@/src/sanity/client";
 import { BlogPostCard } from "./_components/blog-post-card";
 import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "next 15 | blog",
+  description: "read the latest articles, made w sanity",
+};
+
 const POSTS_QUERY = `*[
   _type == "post"
   && defined(slug.current)
@@ -26,11 +31,6 @@ const urlFor = (source: SanityImageSource) =>
     : null;
 
 const options = { next: { revalidate: 30 } };
-
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "Read the latest articles",
-};
 
 export default async function BlogPostPage() {
   const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);

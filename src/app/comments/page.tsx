@@ -6,6 +6,12 @@ import { CommentsGrid } from "./_components/comments-grid";
 import { CursorPagination } from "./_components/cursor-pagination";
 import { CommentsPerPage } from "./_components/comments-per-page";
 import { Routes } from "@/src/utils/routes";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "next 15 | comments",
+  description: "leave me a comment, improvements, suggestions etc",
+};
 
 const getComments = async ({
   cursor,
@@ -45,7 +51,8 @@ export default async function Comments({
           . leave me a comment, but don&apos;t be mean
         </p>
 
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-between mb-4">
+          <div></div>
           <CommentsPerPage />
         </div>
 
