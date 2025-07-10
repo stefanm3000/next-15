@@ -12,6 +12,14 @@ export default function Home() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <ProjectLink
+        title="chat"
+        description="realtime chat built with convex"
+        icon={<Radio className="w-6 h-6 text-white animate-pulse" />}
+        transitionName="chat"
+        href={Routes.CHAT}
+      />
+
+      <ProjectLink
         title="snappy imdb"
         description="explore movie database"
         icon={<Film className="w-6 h-6 text-orange-400" />}
@@ -41,14 +49,6 @@ export default function Home() {
         icon={<MessageCircle className="w-6 h-6 text-purple-400" />}
         transitionName="comments"
         href={Routes.COMMENTS}
-      />
-
-      <ProjectLink
-        title="chat"
-        description="realtime chat"
-        icon={<Radio className="w-6 h-6 text-white animate-pulse" />}
-        transitionName="chat"
-        href={Routes.CHAT}
       />
     </section>
   );
