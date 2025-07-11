@@ -3,19 +3,13 @@
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
 import { Dot } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { useChatUser } from "../_hooks/use-chat-user";
 
 export default function ChatForm() {
   const sendMsg = useMutation(api.chat.sendMessage);
   const ref = useRef<HTMLInputElement>(null);
-  const [username, setUsername] = useState<string>("");
-
-  useEffect(() => {
-    const storedUsername = localStorage.getItem("chatUsername");
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
+  const { userId, username, updateUsername } = useChatUser();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,15 +22,8 @@ export default function ChatForm() {
       return;
     }
 
-    let userId = localStorage.getItem("chatUserId");
-    if (!userId) {
-      userId = crypto.randomUUID();
-      localStorage.setItem("chatUserId", userId);
-    }
-
     if (!username || username !== userValue) {
-      localStorage.setItem("chatUsername", userValue);
-      setUsername(userValue);
+      updateUsername(userValue);
     }
 
     await sendMsg({
