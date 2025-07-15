@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
+    ppr: "incremental",
     viewTransition: true,
     reactCompiler: {
       compilationMode: "annotation",
