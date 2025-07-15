@@ -11,6 +11,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { DynamicValue } from "./_components/dynamic-value";
 
 import { ConvexClientProvider } from "../../comments/_components/convex-client-provider";
+import { BlogComments } from "./_components/blog-comments";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 
@@ -133,6 +134,10 @@ export default async function PostPage({
             </Suspense>
 
             <PostBody post={post} urlFor={urlFor} />
+
+            <Suspense fallback={<div>Loading...</div>}>
+              <BlogComments postId={post._id} />
+            </Suspense>
           </article>
         </div>
       </div>

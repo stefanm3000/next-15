@@ -1,17 +1,47 @@
 "use server";
 
-export const getLatestCryptos = async () => {
-  const url =
-    "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-  const response = await fetch(url, {
-    headers: {
-      "X-CMC_PRO_API_KEY": process.env.SECRET_COINMARKET_API_KEY || "",
-      Accept: "application/json",
+import { revalidateTag, unstable_cache } from "next/cache";
+import { ConvexHttpClient } from "convex/browser";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+
+export async function getComments(postId: string) {
+  const getCachedComments = unstable_cache(
+    async (postId: string) => {
+      return await convex.query(api.blogComments.get, { postId });
     },
-    next: { revalidate: 3600 },
-  });
-  if (!response.ok) {
-    throw new Error(`CoinMarketCap API error: ${response.status}`);
+    [`comments-${postId}`],
+    {
+      tags: [`comments-${postId}`],
+    },
+  );
+
+  return getCachedComments(postId);
+}
+
+export async function addComment(formData: FormData) {
+  const postId = formData.get("postId") as string;
+  const text = formData.get("text") as string;
+
+  if (!text?.trim()) {
+    return;
   }
-  return response.json();
-};
+
+  await convex.mutation(api.blogComments.addComment, { postId, text });
+
+  revalidateTag(`comments-${postId}`);
+}
+
+export async function upvoteComment(formData: FormData) {
+  const commentId = formData.get("commentId") as string;
+  const postId = formData.get("postId") as string;
+
+  await convex.mutation(api.blogComments.upvote, {
+    postId,
+    commentId: commentId as Id<"blogComments">,
+  });
+
+  revalidateTag(`comments-${postId}`);
+}

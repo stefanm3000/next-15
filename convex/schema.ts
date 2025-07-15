@@ -12,4 +12,9 @@ export default defineSchema({
     postId: v.string(),
     dynamicValue: v.number(),
   }),
+  blogComments: defineTable({
+    postId: v.string(),
+    text: v.string(),
+    likes: v.number(),
+  }),
 });

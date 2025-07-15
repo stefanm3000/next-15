@@ -21,8 +21,9 @@ export function DynamicValue({ postId }: { postId: string }) {
       onClick={handleClick}
     >
       <span className="lg:max-w-[500px] text-center text-xs text-gray-400 group-hover:text-white transition-colors">
-        this part of the page is dynamic, while the rest of the page is
-        statically prerendered. click me to increment the value.
+        this part of the page is dynamic as well as the comments at the bottom.
+        the rest of the page is statically prerendered. click me to increment
+        the value.
       </span>
       <span className="text-lg font-bold w-[20px]">
         {loading ? (
