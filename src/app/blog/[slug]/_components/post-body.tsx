@@ -17,7 +17,9 @@ export const PostBody = ({ post, urlFor }: PostBodyProps) => {
           components={{
             block: {
               normal: ({ children }) => (
-                <p className="mb-6 text-gray-300 leading-relaxed">{children}</p>
+                <p className="mb-6 text-gray-300 leading-relaxed wrap-break-word">
+                  {children}
+                </p>
               ),
               h1: ({ children }) => (
                 <h1 className="text-3xl font-bold text-white mb-6 mt-12">
