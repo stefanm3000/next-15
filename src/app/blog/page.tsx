@@ -60,8 +60,8 @@ export default async function BlogPostPage() {
           <a href="https://sanity.io" className="underline">
             sanity
           </a>{" "}
-          as the cms. statically prerendered, but the part of the page that
-          shows the number of likes is dynamic.
+          as the cms. the comments are dynamic (and the other small client
+          island), but the rest of the page is statically prerendered.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
