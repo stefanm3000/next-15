@@ -120,7 +120,15 @@ export default async function PostPage({
               </div>
             </header>
 
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <div className="h-[50px] flex items-center max-w-[576px] mx-auto border border-white/10 rounded-md animate-pulse">
+                  <span className="text-xs text-gray-400 mx-auto text-center">
+                    loading...
+                  </span>
+                </div>
+              }
+            >
               <DynamicValue postId={post._id} />
             </Suspense>
 

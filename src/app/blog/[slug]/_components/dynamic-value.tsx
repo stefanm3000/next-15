@@ -17,10 +17,10 @@ export function DynamicValue({ postId }: { postId: string }) {
 
   return (
     <button
-      className="group flex mx-auto items-center gap-2 text-white hover:text-gray-300 transition-colors cursor-pointer border border-white/10 rounded-md p-2 hover:bg-white/5 hover:border-white/20"
+      className="group flex mx-auto items-center gap-2 text-white hover:text-gray-300 transition-colors cursor-pointer border border-white/50 hover:border-white bg-white/5 rounded-md p-2 hover:bg-white/10"
       onClick={handleClick}
     >
-      <span className="max-w-[200px] lg:max-w-[500px] text-center text-xs text-gray-400 group-hover:text-white transition-colors">
+      <span className="lg:max-w-[500px] text-center text-xs text-gray-400 group-hover:text-white transition-colors">
         this part of the page is dynamic, while the rest of the page is
         statically prerendered. click me to increment the value.
       </span>
