@@ -12,7 +12,7 @@ export default function ChatLayout({
         <h1 className="text-2xl font-bold mb-2">chat</h1>
       </ViewTransition>
       <p className="text-gray-400 text-sm mb-6">
-        realtime chatbuilt with{" "}
+        realtime chat built with{" "}
         <a
           href="https://www.convex.dev/"
           className="text-blue-500"
@@ -21,8 +21,8 @@ export default function ChatLayout({
         >
           convex
         </a>
-        . username will be created on first msg submit
-      </p>{" "}
+        . open 2 tabs side by side to test sync
+      </p>
       <ConvexClientProvider>{children}</ConvexClientProvider>
     </div>
   );

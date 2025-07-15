@@ -10,7 +10,7 @@ this project is a living lab for next.js latest and react canary releases. it in
 
 - realtime chat w [convex](https://convex.dev)
 - app router, rsc + streaming, actions
-- sanity integration for blog, isr
+- sanity integration for blog, ISR, PPR
 - experimental view transitions
 - a mini golf ⛳️ game using three.js + fiber + drei + rapier
 - react compiler for mini golf components

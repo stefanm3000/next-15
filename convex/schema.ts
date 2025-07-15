@@ -8,4 +8,8 @@ export default defineSchema({
     userId: v.string(),
     body: v.string(),
   }),
+  posts: defineTable({
+    postId: v.string(),
+    dynamicValue: v.number(),
+  }),
 });
