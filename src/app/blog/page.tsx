@@ -49,19 +49,19 @@ export default async function BlogPostPage() {
     <div>
       <div className="text-gray-400 text-sm mb-6  flex flex-col gap-2">
         <p>
-          these blog posts are rendered using next.js incremental static regen
-          w/{" "}
+          these blog posts are rendered using next.js{" "}
+          <a
+            href="https://nextjs.org/docs/app/getting-started/partial-prerendering"
+            className="underline"
+          >
+            PPR
+          </a>{" "}
+          with{" "}
           <a href="https://sanity.io" className="underline">
             sanity
           </a>{" "}
-          as the cms
-        </p>
-        <p>
-          mostly written by dan abramov, check out{" "}
-          <a href="https://overreacted.io" className="underline">
-            overreacted.io
-          </a>{" "}
-          for more cool stuff
+          as the cms. statically prerendered, but the part of the page that
+          shows the number of likes is dynamic.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
